@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [userData, setUserData] = useState<UserData>({ id: 0, email: '', name: '', role: '' })
 
   const login = (token: UserData) => {
-    setCookie('token', JSON.stringify(token), { expires: 3 })
+    setCookie('token-sanremo', JSON.stringify(token), { expires: 3 })
     // const decode = jwtDecode(token)
     const decode = token
     setUserData(decode)
@@ -38,11 +38,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const logout = () => {
     setIsLoggedIn(false)
     setUserData({ id: 0, email: '', name: '', role: '' })
-    removeCookie('token')
+    removeCookie('token-sanremo')
   }
 
   useEffect(() => {
-    const token = getCookie('token')
+    const token = getCookie('token-sanremo')
 
     if (token) {
       const parse = JSON.parse(token)
