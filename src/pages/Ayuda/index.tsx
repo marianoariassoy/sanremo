@@ -2,8 +2,6 @@ import { Link } from 'react-router-dom'
 import { Accordion, AccordionItem } from '@heroui/accordion'
 
 const index = () => {
-  const defaultContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi '
-
   return (
     <section className='fade-in p-4 md:p-6 2xl:p-10 flex items-start flex-col gap-y-6 max-w-5xl'>
       <h1 className='text-2xl lg:text-3xl font-bold text-primary'>Ayuda</h1>
@@ -31,11 +29,9 @@ const index = () => {
             title: 'font-bold'
           }}
         >
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur provident cumque repudiandae. Alias quasi
-          cumque tenetur numquam iusto laboriosam voluptatem dolorem corporis eaque hic vitae placeat dolorum dolores,
-          doloribus corrupti? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur provident cumque
-          repudiandae. Alias quasi cumque tenetur numquam iusto laboriosam voluptatem dolorem corporis eaque hic vitae
-          placeat dolorum dolores, doloribus corrupti?
+          La creación de nuevos usuarios debe gestionarse directamente con nuestra empresa. Contactanos para solicitar
+          tu usuario y contraseña. Una vez que recibas estos datos de acceso, podrás iniciar sesión e ingresar al
+          sistema las veces que quieras.
         </AccordionItem>
         <AccordionItem
           key='2'
@@ -45,7 +41,7 @@ const index = () => {
             title: 'font-bold'
           }}
         >
-          {defaultContent}
+          En caso de olvidar tu contraseña deberás ponerte en contacto con la empresa para restablecerla.
         </AccordionItem>
         <AccordionItem
           key='3'
@@ -56,13 +52,14 @@ const index = () => {
           }}
         >
           <div>
-            Ingresá a tu cuenta con tu usuario y contraseña. <br />
-            - En el menú lateral, seleccioná la opción "Formulario de pedidos", donde encontrarás el detalle de los
-            productos disponibles con sus respectivos códigos.
-            <br /> - Seleccioná la cantidad que necesitás de cada ítem.
-            <br /> - Elegí la fecha y horario de preferencia para el retiro del pedido.
-            <br /> Recordá que todos los pedidos deben ser aprobados por nuestro equipo. Antes de retirarlo, te
-            sugerimos confirmar que ya esté preparado.
+            - Ingresá a tu cuenta con tu usuario y contraseña.
+            <br />- En el menú lateral, seleccioná la opción "Formulario de pedidos", donde encontrarás el detalle de
+            los productos disponibles con sus respectivos códigos.
+            <br />- Seleccioná la cantidad que necesitás de cada ítem.
+            <br />- Elegí la fecha y horario de preferencia para el retiro del pedido.
+            <br />
+            Recordá que todos los pedidos deben ser aprobados por nuestro equipo. Antes de retirarlo, te sugerimos
+            confirmar que ya esté preparado.
           </div>
         </AccordionItem>
         <AccordionItem
@@ -73,7 +70,8 @@ const index = () => {
             title: 'font-bold'
           }}
         >
-          {defaultContent}
+          No es posible modificar el pedido una vez realizado, pero podés contactarnos directamente para solicitar
+          cualquier cambio.
         </AccordionItem>
         <AccordionItem
           key='5'
@@ -83,7 +81,9 @@ const index = () => {
             title: 'font-bold'
           }}
         >
-          {defaultContent}
+          - Ingresá a tu cuenta con tus datos de acceso. <br />
+          - En el menú lateral, seleccioná la opción &quot;Historial de pedidos&quot; <br />- Allí podrás ver un listado
+          de todos tus pedidos ordenados por fecha.
         </AccordionItem>
         <AccordionItem
           key='6'
@@ -93,7 +93,8 @@ const index = () => {
             title: 'font-bold'
           }}
         >
-          {defaultContent}
+          Asegurate de contar con una conexión a internet estable. Si el problema persiste, comunicate con nosotros para
+          que podamos asistirte de manera rápida y efectiva.
         </AccordionItem>
       </Accordion>
 
