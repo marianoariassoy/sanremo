@@ -4,23 +4,34 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import Loader from './common/Loader'
 import PageTitle from './components/PageTitle'
 import DefaultLayout from './layout/DefaultLayout'
-
 import Home from './pages/Inicio'
-import FormularioPedidos from './pages/Pedidos/formulario'
-import HistorialPedidos from './pages/Pedidos/historial'
-import Ayuda from './pages/Ayuda'
-import Contacto from './pages/Contacto'
 
-import Productos from './pages/Productos'
-import Pedidos from './pages/Pedidos/pedidos'
-import PedidosDetalles from './pages/Pedidos/detalles'
-import ResumenPedidos from './pages/Pedidos/resumen'
-import PedidosActuales from './pages/Pedidos/pedidos-actuales'
-import HistorialPedidosAdmin from './pages/Pedidos/historial-admin'
-import Estadisticas from './pages/Estadisticas'
+// User
+import FormularioPedidos from './pages/Clientes/Pedidos/formulario'
+import HistorialPedidos from './pages/Clientes/Pedidos/historial'
+import PedidosDetalles from './pages/Clientes/Pedidos/detalles'
+import Ayuda from './pages/Clientes/Ayuda'
+import Contacto from './pages/Clientes/Contacto'
+
+// Admin
+import Productos from './pages/Admin/Productos'
+import ProductosNuevo from './pages/Admin/Productos/Nuevo'
+import Clientes from './pages/Admin/Clientes'
+import ClientesNuevo from './pages/Admin/Clientes/Nuevo'
+import ClientesModificar from './pages/Admin/Clientes/Modificar'
+
+import Pedidos from './pages/Admin/Pedidos'
+import PedidosResumen from './pages/Admin/Pedidos/resumen'
+import PedidosActuales from './pages/Admin/Pedidos/actuales'
+import PedidosHistorial from './pages/Admin/Pedidos/historial'
+import PedidosEstadisticas from './pages/Admin/Pedidos/estadisticas'
+
+import Catalogo from './pages/Admin/Archivos/catalogo'
+import ListaPrecios from './pages/Admin/Archivos/listaDePrecios'
+
+// Auth
 import SignIn from './pages/Authentication/SignIn'
 
-import Perfil from './pages/Perfil'
 import { useAuth } from './context'
 import NotFound from './404'
 
@@ -65,16 +76,7 @@ function App() {
               }
             />
             <Route
-              path='/inicio'
-              element={
-                <>
-                  <PageTitle title='San Remo' />
-                  <Home />
-                </>
-              }
-            />
-            <Route
-              path='/formulario-pedidos'
+              path='/clientes/pedidos'
               element={
                 <>
                   <PageTitle title='Formulario de pedidos | San Remo' />
@@ -83,20 +85,20 @@ function App() {
               }
             />
             <Route
-              path='/historial-pedidos'
+              path='clientes/pedidos/:id'
               element={
                 <>
-                  <PageTitle title='Historial de pedidos | San Remo' />
-                  <HistorialPedidos />
+                  <PageTitle title='Detalle del pedido | San Remo' />
+                  <PedidosDetalles />
                 </>
               }
             />
             <Route
-              path='/pedidos/:id'
+              path='/clientes/historial'
               element={
                 <>
-                  <PageTitle title='Pedidos | San Remo' />
-                  <PedidosDetalles />
+                  <PageTitle title='Historial de pedidos | San Remo' />
+                  <HistorialPedidos />
                 </>
               }
             />
@@ -118,15 +120,6 @@ function App() {
                 </>
               }
             />
-            <Route
-              path='/perfil'
-              element={
-                <>
-                  <PageTitle title='Datos del usuario | San Remo' />
-                  <Perfil />
-                </>
-              }
-            />
           </>
         )}
         {isLoggedIn && userData.role === 'admin' && (
@@ -141,16 +134,7 @@ function App() {
               }
             />
             <Route
-              path='/inicio'
-              element={
-                <>
-                  <PageTitle title='San Remo' />
-                  <Home />
-                </>
-              }
-            />
-            <Route
-              path='/productos'
+              path='/admin/productos'
               element={
                 <>
                   <PageTitle title='Productos | San Remo' />
@@ -159,25 +143,71 @@ function App() {
               }
             />
             <Route
-              path='/pedidos'
+              path='/admin/productos/nuevo'
               element={
                 <>
-                  <PageTitle title='Pedidos | San Remo' />
+                  <PageTitle title='Nuevo Producto | San Remo' />
+                  <ProductosNuevo />
+                </>
+              }
+            />
+            <Route
+              path='/admin/productos/modificar/:id'
+              element={
+                <>
+                  <PageTitle title='Modificar Producto | San Remo' />
+                  <ProductosNuevo />
+                </>
+              }
+            />
+            <Route
+              path='/admin/clientes'
+              element={
+                <>
+                  <PageTitle title='Clientes | San Remo' />
+                  <Clientes />
+                </>
+              }
+            />
+            <Route
+              path='/admin/clientes/nuevo'
+              element={
+                <>
+                  <PageTitle title='Nuevo Cliente | San Remo' />
+                  <ClientesNuevo />
+                </>
+              }
+            />
+            <Route
+              path='/admin/clientes/modificar/:id'
+              element={
+                <>
+                  <PageTitle title='Modificar Cliente | San Remo' />
+                  <ClientesModificar />
+                </>
+              }
+            />
+            <Route
+              path='/admin/pedidos'
+              element={
+                <>
+                  <PageTitle title='Listado de pedidos | San Remo' />
                   <Pedidos />
                 </>
               }
             />
+
             <Route
-              path='/resumen'
+              path='/admin/pedidos/resumen'
               element={
                 <>
                   <PageTitle title='Resumen de pedidos | San Remo' />
-                  <ResumenPedidos />
+                  <PedidosResumen />
                 </>
               }
             />
             <Route
-              path='/actuales'
+              path='/admin/pedidos/actuales'
               element={
                 <>
                   <PageTitle title='Pedidos Actuales | San Remo' />
@@ -186,20 +216,38 @@ function App() {
               }
             />
             <Route
-              path='/historial'
+              path='/admin/pedidos/historial'
               element={
                 <>
                   <PageTitle title='Historial de pedidos | San Remo' />
-                  <HistorialPedidosAdmin />
+                  <PedidosHistorial />
                 </>
               }
             />
             <Route
-              path='/estadisticas'
+              path='/admin/pedidos/estadisticas'
               element={
                 <>
                   <PageTitle title='Estadísticas | San Remo' />
-                  <Estadisticas />
+                  <PedidosEstadisticas />
+                </>
+              }
+            />
+            <Route
+              path='/admin/catalogo'
+              element={
+                <>
+                  <PageTitle title='Catálogo | San Remo' />
+                  <Catalogo />
+                </>
+              }
+            />
+            <Route
+              path='/admin/lista-precios'
+              element={
+                <>
+                  <PageTitle title='Lista de Precios | San Remo' />
+                  <ListaPrecios />
                 </>
               }
             />

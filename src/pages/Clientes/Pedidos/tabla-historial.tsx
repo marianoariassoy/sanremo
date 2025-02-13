@@ -37,7 +37,7 @@ const TableOne = ({ data, admin }: { data: Data[]; admin: boolean }) => {
                 {admin && <td className='p-2.5 py-4'>{item.client}</td>}
                 <td className='p-2 text-right'>
                   <Link
-                    to={`/detalles/${item.id}`}
+                    to={`/clientes/pedidos/${item.id}`}
                     className='font-bold hover:text-primary'
                   >
                     ver
