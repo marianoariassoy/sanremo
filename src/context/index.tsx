@@ -1,20 +1,14 @@
 import { createContext, useState, useContext, useEffect, ReactNode } from 'react'
 import { getCookie, setCookie, removeCookie } from 'typescript-cookie'
-// import { jwtDecode } from 'jwt-decode'
-
-interface UserData {
-  id: number
-  email: string
-  name: string
-  role: string
-}
+import { jwtDecode } from 'jwt-decode'
+import { User } from '../types/users'
 
 interface AuthContextType {
   isLoggedIn: boolean
-  login: (token: UserData) => void
+  login: (token: string) => void
   logout: () => void
-  userData: UserData
-  setUserData: React.Dispatch<React.SetStateAction<UserData>>
+  userData: User
+  setUserData: React.Dispatch<React.SetStateAction<User>>
 }
 
 interface AuthProviderProps {
@@ -25,28 +19,26 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
-  const [userData, setUserData] = useState<UserData>({ id: 0, email: '', name: '', role: '' })
+  const [userData, setUserData] = useState<User>({ id: 0, name: '', user: '', role: '' })
 
-  const login = (token: UserData) => {
-    setCookie('token-sanremo', JSON.stringify(token), { expires: 3 })
-    // const decode = jwtDecode(token)
-    const decode = token
+  const login = (token: string) => {
+    setCookie('sanremo', token, { expires: 3 })
+    const decode = jwtDecode<User>(token)
     setUserData(decode)
     setIsLoggedIn(true)
   }
 
   const logout = () => {
     setIsLoggedIn(false)
-    setUserData({ id: 0, email: '', name: '', role: '' })
-    removeCookie('token-sanremo')
+    setUserData({ id: 0, name: '', user: '', role: '' })
+    removeCookie('sanremo')
   }
 
   useEffect(() => {
-    const token = getCookie('token-sanremo')
+    const token = getCookie('sanremo')
 
     if (token) {
-      const parse = JSON.parse(token)
-      login(parse)
+      login(token)
     }
   }, [])
 

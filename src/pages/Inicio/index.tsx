@@ -11,6 +11,11 @@ const index = () => {
       blank: false
     },
     {
+      name: 'Clientes',
+      to: '/admin/clientes',
+      blank: false
+    },
+    {
       name: 'Pedidos',
       to: '/admin/pedidos',
       blank: false
@@ -91,10 +96,10 @@ const index = () => {
 
       {userData.role === 'user' && (
         <div className='mt-3 grid grid-cols-1 lg:grid-cols-3 gap-4'>
-          {user.map(item =>
+          {user.map((item, index) =>
             item.blank ? (
               <a
-                key={item.name}
+                key={index}
                 href={item.to}
                 target='_blank'
                 rel='noreferrer'
@@ -104,7 +109,7 @@ const index = () => {
               </a>
             ) : (
               <Link
-                key={item.name}
+                key={index}
                 to={item.to}
                 className='flex items-center gap-x-2 bg-primary text-white py-4 px-6 rounded-full hover:bg-opacity-90  transition-colors text-sm lg:text-base font-medium'
               >
@@ -116,10 +121,10 @@ const index = () => {
       )}
 
       {userData.role === 'admin' && (
-        <div className='mt-3 grid grid-cols-1 lg:grid-cols-2 gap-4'>
-          {admin.map(item => (
+        <div className='mt-3 grid grid-cols-1 lg:grid-cols-3 gap-4'>
+          {admin.map((item, index) => (
             <Link
-              key={item.name}
+              key={index}
               to={item.to}
               className='flex items-center gap-x-2 bg-primary text-white py-4 px-6 rounded-full hover:bg-opacity-90  transition-colors text-sm lg:text-base font-medium'
             >

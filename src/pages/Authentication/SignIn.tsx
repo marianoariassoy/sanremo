@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-// import axios from 'axios'
+import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast'
-import { useAuth } from '../../context'
 import { BeatLoader } from 'react-spinners'
+import { User } from '../../types/users'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context'
 
 import Logo from '../../images/logo/logo.png'
 import Logo2 from '../../images/logo/logo-krumel-bn.png'
@@ -13,12 +14,12 @@ import Logo4 from '../../images/logo/logo-criskey-bn.png'
 import Logo5 from '../../images/logo/logo-cops-bn.png'
 
 const SignIn: React.FC = () => {
-  const { login, isLoggedIn } = useAuth()
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const apiUrl = import.meta.env.VITE_API_URL
   const navigate = useNavigate()
-  if (isLoggedIn) navigate('/inicio')
+  const { login } = useAuth()
 
   const Error = ({ text }: { text: string }) => {
     return <div className='mt-2 text-sm text-primary font-medium'>👆 {text}</div>
@@ -30,47 +31,24 @@ const SignIn: React.FC = () => {
     formState: { errors }
   } = useForm()
 
-  const onSubmit = async (data: { username: string; password: string }) => {
+  const onSubmit = async (data: User) => {
     setError('')
     setSending(true)
 
-    if (data.username === 'cliente' && data.password === '123456') {
-      const data = {
-        id: 2,
-        username: 'cliente',
-        name: 'Panadería ABC',
-        role: 'user'
+    try {
+      const response = await axios.post(`${apiUrl}/users/login`, data)
+      if (response.data.success) {
+        const token = response.data.token
+        login(token)
+        navigate('/')
+      } else {
+        setError(response.data.message)
+        setSending(false)
       }
-      login(data)
-      navigate('/')
-    } else if (data.username === 'admin' && data.password === '123456') {
-      const data = {
-        id: 1,
-        username: 'admin',
-        name: 'San Remo',
-        role: 'admin'
-      }
-      login(data)
-      navigate('/')
-    } else {
-      setError('Usuario o contraseña incorrectos')
+    } catch (error) {
+      setError(error)
       setSending(false)
     }
-
-    // try {
-    //   const response = await axios.post('', data)
-    //   if (response.data.success) {
-    //     const token = response.data.token
-    //     login(token)
-    //     navigate('/home')
-    //   } else {
-    //     setError(response.data.message)
-    //     setSending(false)
-    //   }
-    // } catch (error) {
-    //   setError(error)
-    //   setSending(false)
-    // }
   }
 
   useEffect(() => {
@@ -142,14 +120,14 @@ const SignIn: React.FC = () => {
                   <div className='relative'>
                     <input
                       type='text'
-                      {...register('username', {
+                      {...register('user', {
                         required: 'Este dato es requerido',
                         maxLength: 50
                       })}
                       placeholder='Ingresa tu usuario'
                       className='w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary'
                     />
-                    {errors.username && <Error text={errors.username.message} />}
+                    {errors.user && <Error text={errors.user.message} />}
                     <span className='absolute right-4 top-4'>
                       <svg
                         viewBox='0 0 24 24'
@@ -157,8 +135,8 @@ const SignIn: React.FC = () => {
                         className='fill-gray-500 dark:fill-gray-400 w-6 h-6'
                       >
                         <path
-                          fill-rule='evenodd'
-                          clip-rule='evenodd'
+                          fillRule='evenodd'
+                          clipRule='evenodd'
                           d='M12 3.5C7.30558 3.5 3.5 7.30558 3.5 12C3.5 14.1526 4.3002 16.1184 5.61936 17.616C6.17279 15.3096 8.24852 13.5955 10.7246 13.5955H13.2746C15.7509 13.5955 17.8268 15.31 18.38 17.6167C19.6996 16.119 20.5 14.153 20.5 12C20.5 7.30558 16.6944 3.5 12 3.5ZM17.0246 18.8566V18.8455C17.0246 16.7744 15.3457 15.0955 13.2746 15.0955H10.7246C8.65354 15.0955 6.97461 16.7744 6.97461 18.8455V18.856C8.38223 19.8895 10.1198 20.5 12 20.5C13.8798 20.5 15.6171 19.8898 17.0246 18.8566ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM11.9991 7.25C10.8847 7.25 9.98126 8.15342 9.98126 9.26784C9.98126 10.3823 10.8847 11.2857 11.9991 11.2857C13.1135 11.2857 14.0169 10.3823 14.0169 9.26784C14.0169 8.15342 13.1135 7.25 11.9991 7.25ZM8.48126 9.26784C8.48126 7.32499 10.0563 5.75 11.9991 5.75C13.9419 5.75 15.5169 7.32499 15.5169 9.26784C15.5169 11.2107 13.9419 12.7857 11.9991 12.7857C10.0563 12.7857 8.48126 11.2107 8.48126 9.26784Z'
                         ></path>
                       </svg>
@@ -180,8 +158,8 @@ const SignIn: React.FC = () => {
                           className='fill-gray-500 dark:fill-gray-400 w-6 h-6'
                         >
                           <path
-                            fill-rule='evenodd'
-                            clip-rule='evenodd'
+                            fillRule='evenodd'
+                            clipRule='evenodd'
                             d='M10.0002 13.8619C7.23361 13.8619 4.86803 12.1372 3.92328 9.70241C4.86804 7.26761 7.23361 5.54297 10.0002 5.54297C12.7667 5.54297 15.1323 7.26762 16.0771 9.70243C15.1323 12.1372 12.7667 13.8619 10.0002 13.8619ZM10.0002 4.04297C6.48191 4.04297 3.49489 6.30917 2.4155 9.4593C2.3615 9.61687 2.3615 9.78794 2.41549 9.94552C3.49488 13.0957 6.48191 15.3619 10.0002 15.3619C13.5184 15.3619 16.5055 13.0957 17.5849 9.94555C17.6389 9.78797 17.6389 9.6169 17.5849 9.45932C16.5055 6.30919 13.5184 4.04297 10.0002 4.04297ZM9.99151 7.84413C8.96527 7.84413 8.13333 8.67606 8.13333 9.70231C8.13333 10.7286 8.96527 11.5605 9.99151 11.5605H10.0064C11.0326 11.5605 11.8646 10.7286 11.8646 9.70231C11.8646 8.67606 11.0326 7.84413 10.0064 7.84413H9.99151Z'
                           ></path>
                         </svg>
@@ -192,8 +170,8 @@ const SignIn: React.FC = () => {
                           className='fill-gray-500 dark:fill-gray-400 w-6 h-6'
                         >
                           <path
-                            fill-rule='evenodd'
-                            clip-rule='evenodd'
+                            fillRule='evenodd'
+                            clipRule='evenodd'
                             d='M4.63803 3.57709C4.34513 3.2842 3.87026 3.2842 3.57737 3.57709C3.28447 3.86999 3.28447 4.34486 3.57737 4.63775L4.85323 5.91362C3.74609 6.84199 2.89363 8.06395 2.4155 9.45936C2.3615 9.61694 2.3615 9.78801 2.41549 9.94558C3.49488 13.0957 6.48191 15.3619 10.0002 15.3619C11.255 15.3619 12.4422 15.0737 13.4994 14.5598L15.3625 16.4229C15.6554 16.7158 16.1302 16.7158 16.4231 16.4229C16.716 16.13 16.716 15.6551 16.4231 15.3622L4.63803 3.57709ZM12.3608 13.4212L10.4475 11.5079C10.3061 11.5423 10.1584 11.5606 10.0064 11.5606H9.99151C8.96527 11.5606 8.13333 10.7286 8.13333 9.70237C8.13333 9.5461 8.15262 9.39434 8.18895 9.24933L5.91885 6.97923C5.03505 7.69015 4.34057 8.62704 3.92328 9.70247C4.86803 12.1373 7.23361 13.8619 10.0002 13.8619C10.8326 13.8619 11.6287 13.7058 12.3608 13.4212ZM16.0771 9.70249C15.7843 10.4569 15.3552 11.1432 14.8199 11.7311L15.8813 12.7925C16.6329 11.9813 17.2187 11.0143 17.5849 9.94561C17.6389 9.78803 17.6389 9.61696 17.5849 9.45938C16.5055 6.30925 13.5184 4.04303 10.0002 4.04303C9.13525 4.04303 8.30244 4.17999 7.52218 4.43338L8.75139 5.66259C9.1556 5.58413 9.57311 5.54303 10.0002 5.54303C12.7667 5.54303 15.1323 7.26768 16.0771 9.70249Z'
                           ></path>
                         </svg>

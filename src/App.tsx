@@ -15,10 +15,7 @@ import Contacto from './pages/Clientes/Contacto'
 
 // Admin
 import Productos from './pages/Admin/Productos'
-import ProductosNuevo from './pages/Admin/Productos/Nuevo'
 import Clientes from './pages/Admin/Clientes'
-import ClientesNuevo from './pages/Admin/Clientes/Nuevo'
-import ClientesModificar from './pages/Admin/Clientes/Modificar'
 
 import Pedidos from './pages/Admin/Pedidos'
 import PedidosResumen from './pages/Admin/Pedidos/resumen'
@@ -142,24 +139,7 @@ function App() {
                 </>
               }
             />
-            <Route
-              path='/admin/productos/nuevo'
-              element={
-                <>
-                  <PageTitle title='Nuevo Producto | San Remo' />
-                  <ProductosNuevo />
-                </>
-              }
-            />
-            <Route
-              path='/admin/productos/modificar/:id'
-              element={
-                <>
-                  <PageTitle title='Modificar Producto | San Remo' />
-                  <ProductosNuevo />
-                </>
-              }
-            />
+
             <Route
               path='/admin/clientes'
               element={
@@ -169,24 +149,7 @@ function App() {
                 </>
               }
             />
-            <Route
-              path='/admin/clientes/nuevo'
-              element={
-                <>
-                  <PageTitle title='Nuevo Cliente | San Remo' />
-                  <ClientesNuevo />
-                </>
-              }
-            />
-            <Route
-              path='/admin/clientes/modificar/:id'
-              element={
-                <>
-                  <PageTitle title='Modificar Cliente | San Remo' />
-                  <ClientesModificar />
-                </>
-              }
-            />
+
             <Route
               path='/admin/pedidos'
               element={

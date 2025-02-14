@@ -51,7 +51,7 @@ const Header = (props: { sidebarOpen: string | boolean | undefined; setSidebarOp
 
           <Link
             className='block flex-shrink-0 lg:hidden'
-            to='/inicio'
+            to='/'
           >
             <img
               src={LogoIcon}
