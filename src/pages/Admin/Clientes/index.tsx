@@ -5,6 +5,7 @@ import axios from 'axios'
 import Confirm from '../../../components/Confirm'
 import Modal from './Modal'
 import { User } from '../../../types/users'
+import Search from '../../../components/Search'
 
 const productos = () => {
   const [users, setUser] = useState<User[]>([])
@@ -12,6 +13,7 @@ const productos = () => {
   const [id_to_delete, setIdToDelete] = useState(0)
   const [id_to_update, setIdToUpdate] = useState(0)
   const [modal, setModal] = useState(false)
+  const [search, setSearch] = useState('')
   const apiUrl = import.meta.env.VITE_API_URL
 
   const getUsers = async () => {
@@ -53,15 +55,25 @@ const productos = () => {
     setModal(true)
   }
 
+  const usersFiltered = users.filter(
+    item =>
+      item.name.toLowerCase().includes(search.toLowerCase()) || item.user.toLowerCase().includes(search.toLowerCase())
+  )
+
   return (
     <section className='fade-in p-4 md:p-6 2xl:p-10 flex items-start flex-col gap-y-6'>
-      <div className='w-full flex justify-between'>
+      <div className='w-full flex flex-col lg:flex-row justify-between gap-4'>
         <div>
-          <h1 className='text-2xl lg:text-3xl font-bold'>Clientes ({users?.length})</h1>
+          <h1 className='text-xl lg:text-3xl font-bold'>Clientes ({usersFiltered?.length})</h1>
         </div>
-        <div>
+        <div className='flex flex-col lg:flex-row gap-x-4 gap-y-2'>
+          <Search
+            search={search}
+            setSearch={setSearch}
+            placeholder='Buscar por nombre o código'
+          />
           <button
-            className='inline-flex items-center justify-center bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-20 rounded-lg'
+            className='inline-flex items-center justify-center bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-20 rounded-lg text-sm lg:text-base'
             onClick={() => addUser()}
           >
             Agregar
@@ -72,7 +84,7 @@ const productos = () => {
         <Loader />
       ) : (
         <Tabla
-          data={users}
+          data={usersFiltered}
           setIdToDelete={setIdToDelete}
           updateUser={updateUser}
         />

@@ -80,6 +80,16 @@ const TableOne = ({
                   </td>
                 </tr>
               ))}
+              {data.length === 0 && (
+                <tr>
+                  <td
+                    colSpan={6}
+                    className='p-2 py-4 font-medium'
+                  >
+                    No hay productos para mostrar 😢
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
