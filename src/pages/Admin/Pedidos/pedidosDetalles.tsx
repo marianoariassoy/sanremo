@@ -63,8 +63,9 @@ const Detalles = ({ order, setIdToDelete }: { order: Order; setIdToDelete: (id: 
     >
       <div className='border-b border-stroke pb-4 dark:border-strokedark flex items-start justify-between'>
         <div>
-          <h2>{order.user_name}</h2>
-          <h2 className='font-bold'>#{order.user_code}</h2>
+          <h2>
+            {order.user_name} - #{order.user_code}
+          </h2>
           <p className='text-sm text-secondary'>Fecha de pedido: {formatDate(new Date(order.created_at))}</p>
         </div>
         <div className='flex items-center gap-x-2'>
@@ -142,11 +143,11 @@ const Detalles = ({ order, setIdToDelete }: { order: Order; setIdToDelete: (id: 
         {order.products.map(item => (
           <div
             key={item.id}
-            className='flex justify-between'
+            className='flex justify-between border-b border-gray-100 dark:border-strokedark py-1'
           >
             <div className='w-12'>{item.code}</div>
             <div className='flex-1'>{item.title}</div>
-            <div>{item.amount}</div>
+            <div>{item.amount} u</div>
           </div>
         ))}
       </div>

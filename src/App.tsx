@@ -18,8 +18,7 @@ import Productos from './pages/Admin/Productos'
 import Categorias from './pages/Admin/Productos/categorias'
 import Clientes from './pages/Admin/Clientes'
 import Pedidos from './pages/Admin/Pedidos'
-import PedidosResumen from './pages/Admin/Pedidos/resumen'
-import PedidosActuales from './pages/Admin/Pedidos/actuales'
+
 import PedidosHistorial from './pages/Admin/Pedidos/historial'
 import PedidosEstadisticas from './pages/Admin/Pedidos/estadisticas'
 
@@ -166,29 +165,20 @@ function App() {
               }
             />
             <Route
-              path='/admin/pedidos/resumen'
-              element={
-                <>
-                  <PageTitle title='Resumen de pedidos | San Remo' />
-                  <PedidosResumen />
-                </>
-              }
-            />
-            <Route
-              path='/admin/pedidos/actuales'
-              element={
-                <>
-                  <PageTitle title='Pedidos Actuales | San Remo' />
-                  <PedidosActuales />
-                </>
-              }
-            />
-            <Route
               path='/admin/pedidos/historial'
               element={
                 <>
                   <PageTitle title='Historial de pedidos | San Remo' />
                   <PedidosHistorial />
+                </>
+              }
+            />
+            <Route
+              path='/admin/pedidos/detalles/:id'
+              element={
+                <>
+                  <PageTitle title='Detalles del pedido | San Remo' />
+                  <PedidosDetalles />
                 </>
               }
             />

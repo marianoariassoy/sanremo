@@ -4,11 +4,8 @@ import axios from 'axios'
 import Loader from '../../../components/Loader'
 import { Order } from '../../../types/order'
 import Confirm from '../../../components/Confirm'
-import { format, isSameDay, parseISO } from 'date-fns'
-import { DateRange } from 'react-date-range'
-import 'react-date-range/dist/styles.css'
-import 'react-date-range/dist/theme/default.css'
-import { es } from 'date-fns/locale'
+import { parseISO } from 'date-fns'
+import DateRange from './DateRange'
 
 const detalles = () => {
   const [data, setData] = useState<Order[]>([])
@@ -54,7 +51,8 @@ const detalles = () => {
       setLoading(true)
       const response = await axios.get(`${apiUrl}/orders`)
       if (response.data) {
-        setData(response.data)
+        const data = response.data.filter(order => order.active)
+        setData(data)
         setLoading(false)
       }
     } catch (error) {
@@ -75,18 +73,8 @@ const detalles = () => {
   }
 
   return (
-    <section className='fade-in p-4 md:p-6 2xl:p-10 flex items-start flex-col gap-y-6'>
-      <div>
-        <DateRange
-          ranges={[{ startDate, endDate, key: 'selection' }]}
-          locale={es}
-          onChange={handleDateChange}
-          showSelectionPreview={true}
-          moveRangeOnFirstSelection={false}
-          className='w-full'
-        />
-      </div>
-      <div className='w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4'>
+    <section className='fade-in p-4 md:p-6 2xl:p-10 flex flex-col-reverse lg:flex-row gap-4'>
+      <div className='w-full flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 items-start'>
         {loading ? (
           <Loader />
         ) : filteredOrders.length === 0 ? (
@@ -103,6 +91,12 @@ const detalles = () => {
           })
         )}
       </div>
+
+      <DateRange
+        startDate={startDate}
+        endDate={endDate}
+        handleDateChange={handleDateChange}
+      />
 
       <Confirm
         id_to_delete={id_to_delete}
