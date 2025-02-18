@@ -125,7 +125,7 @@ const formulario = () => {
             setProducts={setProducts}
           />
           <div className='rounded-sm w-full border border-stroke bg-white p-2 lg:px-5 lg:pt-6 pb-2 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-4 text-sm lg:text-base'>
-            <div className='flex items-center rounded-sm '>
+            <div className='flex items-start rounded-sm gap-4'>
               <div className='p-2.5 py-4 w-12 lg:w-26'>
                 <h5 className='font-bold lg:text-xl'>Retiro</h5>
               </div>

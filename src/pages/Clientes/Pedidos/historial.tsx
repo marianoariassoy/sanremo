@@ -33,7 +33,7 @@ const formulario = () => {
     <section className='fade-in p-4 md:p-6 2xl:p-10 flex items-start flex-col gap-y-6 w-full max-w-5xl'>
       <h1 className='text-2xl lg:text-3xl font-bold'>Historial de pedidos</h1>
 
-      {loading ? <Loader /> : <Tabla data={data} />}
+      {loading ? <Loader /> : data.length > 0 ? <Tabla data={data} /> : <p>No hay pedidos realizados</p>}
     </section>
   )
 }
