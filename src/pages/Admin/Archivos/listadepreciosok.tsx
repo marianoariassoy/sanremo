@@ -8,7 +8,7 @@ interface FormValues {
   file: FileList
 }
 
-const listadeprecios = () => {
+const Listadepreciosok = () => {
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
   const apiUrl = import.meta.env.VITE_API_URL
@@ -103,4 +103,4 @@ const listadeprecios = () => {
   )
 }
 
-export default listadeprecios
+export default Listadepreciosok

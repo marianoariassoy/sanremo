@@ -1,5 +1,5 @@
 import Catalogo from './catalogo'
-import Listadeprecios from './listadeprecios'
+import Listadeprecios from './listadepreciosok'
 
 const index = () => {
   return (
