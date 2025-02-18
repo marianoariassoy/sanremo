@@ -15,16 +15,15 @@ import Contacto from './pages/Clientes/Contacto'
 
 // Admin
 import Productos from './pages/Admin/Productos'
+import Categorias from './pages/Admin/Productos/categorias'
 import Clientes from './pages/Admin/Clientes'
-
 import Pedidos from './pages/Admin/Pedidos'
 import PedidosResumen from './pages/Admin/Pedidos/resumen'
 import PedidosActuales from './pages/Admin/Pedidos/actuales'
 import PedidosHistorial from './pages/Admin/Pedidos/historial'
 import PedidosEstadisticas from './pages/Admin/Pedidos/estadisticas'
 
-import Catalogo from './pages/Admin/Archivos/catalogo'
-import ListaPrecios from './pages/Admin/Archivos/listaDePrecios'
+import Archivos from './pages/Admin/Archivos/'
 
 // Auth
 import SignIn from './pages/Authentication/SignIn'
@@ -139,7 +138,15 @@ function App() {
                 </>
               }
             />
-
+            <Route
+              path='/admin/categorias'
+              element={
+                <>
+                  <PageTitle title='Categorias | San Remo' />
+                  <Categorias />
+                </>
+              }
+            />
             <Route
               path='/admin/clientes'
               element={
@@ -149,7 +156,6 @@ function App() {
                 </>
               }
             />
-
             <Route
               path='/admin/pedidos'
               element={
@@ -159,7 +165,6 @@ function App() {
                 </>
               }
             />
-
             <Route
               path='/admin/pedidos/resumen'
               element={
@@ -197,20 +202,11 @@ function App() {
               }
             />
             <Route
-              path='/admin/catalogo'
+              path='/admin/archivos'
               element={
                 <>
-                  <PageTitle title='Catálogo | San Remo' />
-                  <Catalogo />
-                </>
-              }
-            />
-            <Route
-              path='/admin/lista-precios'
-              element={
-                <>
-                  <PageTitle title='Lista de Precios | San Remo' />
-                  <ListaPrecios />
+                  <PageTitle title='Archivos | San Remo' />
+                  <Archivos />
                 </>
               }
             />

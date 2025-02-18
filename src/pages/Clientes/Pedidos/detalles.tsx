@@ -1,59 +1,50 @@
-import { useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { useReactToPrint } from 'react-to-print'
 import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
+import axios from 'axios'
+import Loader from '../../../components/Loader'
+import { Order } from '../../../types/order'
 
 const detalles = () => {
+  const { id } = useParams()
+  const [data, setData] = useState<Order[]>([])
+  const [loading, setLoading] = useState(true)
+  const apiUrl = import.meta.env.VITE_API_URL
+
+  useEffect(() => {
+    getOrder()
+  }, [])
+
+  const getOrder = async () => {
+    try {
+      setLoading(true)
+      const response = await axios.get(`${apiUrl}/orders/${id}`)
+      if (response.data) {
+        setData(response.data)
+        setLoading(false)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const contentRef = useRef<HTMLDivElement>(null)
   const reactToPrintFn = useReactToPrint({ contentRef })
-
-  const info = [
-    {
-      Fecha: '01/10/2025',
-      Hora: '12:00 hs.',
-      Cliente: 'Distribuidora LM',
-      Distribuidor: 'San Remo',
-      code: '1111'
-    }
-  ]
-
-  const data = [
-    {
-      Cod: '11',
-      Titulo: 'Hamburguesa x 4 u',
-      Cantidad: '12 u'
-    },
-    {
-      Cod: '12',
-      Titulo: 'Hamburguesa x 4 u',
-      Cantidad: '12 u'
-    },
-    {
-      Cod: '13',
-      Titulo: 'Hamburguesa x 4 u',
-      Cantidad: '12 u'
-    },
-    {
-      Cod: '14',
-      Titulo: 'Hamburguesa x 4 u',
-      Cantidad: '12 u'
-    }
-  ]
-
-  const file = `pedido-sanremo-#${info[0].code}.xlsx`
+  const file = `pedido-sanremo.xlsx`
 
   const exportToExcel = () => {
     const ws = XLSX.utils.json_to_sheet(data)
-    const ws2 = XLSX.utils.json_to_sheet(info)
     const wb = XLSX.utils.book_new()
     XLSX.utils.book_append_sheet(wb, ws, 'Detalle del pedido')
-    XLSX.utils.book_append_sheet(wb, ws2, 'Información')
 
     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
     const dataBlob = new Blob([excelBuffer], { type: 'application/octet-stream' })
     saveAs(dataBlob, file)
   }
+
+  if (loading) return <Loader />
 
   return (
     <section className='fade-in p-4 md:p-6 2xl:p-10 flex flex-col gap-y-6 max-w-5xl'>
@@ -64,12 +55,11 @@ const detalles = () => {
         <div className='border-b border-stroke pb-4 dark:border-strokedark flex justify-between gap-x-8'>
           <div className='flex flex-col lg:flex-row justify-between flex-1'>
             <div>
-              <h2 className='font-bold'>Pedido #12345</h2>
-              <h3 className='font-bold'>Distribuidora LM</h3>
-            </div>
-            <div>
-              <p className='text-sm text-secondary'>Fecha de pedido: 01/10/2025</p>
-              <p className='text-sm text-secondary'>Fecha y hora de retiro: 11/10/2025 12:00 hs.</p>
+              <h2 className='font-bold'>Pedido #{data[0].id}</h2>
+              <p className='text-sm text-secondary'>Fecha de pedido: {data[0].created_at}</p>
+              <p className='text-sm text-secondary'>
+                Fecha y hora de retiro: {data[0].pickup_date} {data[0].pickup_hour} hs.
+              </p>
             </div>
           </div>
           <div className='flex items-center gap-x-2'>
@@ -106,14 +96,14 @@ const detalles = () => {
           </div>
         </div>
         <div className='py-4 text-sm lg:text-base'>
-          {data.map(item => (
+          {data[0].products.map(item => (
             <div
-              key={item.Cod}
+              key={item.id}
               className='flex justify-between'
             >
-              <div className='w-12'>{item.Cod}</div>
-              <div className='flex-1'>{item.Titulo}</div>
-              <div>{item.Cantidad}</div>
+              <div className='w-12'>{item.code}</div>
+              <div className='flex-1'>{item.title}</div>
+              <div>{item.amount}</div>
             </div>
           ))}
         </div>

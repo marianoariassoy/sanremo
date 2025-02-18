@@ -6,4 +6,5 @@ export type Product = {
   category_name: string
   top: number
   created_at?: string
+  amount?: number
 }

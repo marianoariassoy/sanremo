@@ -1,13 +1,13 @@
-import { Product } from '../../../types/product'
+import { Category } from '../../../types/category'
 
 const TableOne = ({
   data,
   setIdToDelete,
-  updateProduct
+  updateCategory
 }: {
-  data: Product[]
+  data: Category[]
   setIdToDelete: (id: number) => void
-  updateProduct: (id: number) => void
+  updateCategory: (id: number) => void
 }) => {
   return (
     <article className='w-full max-w-5xl flex flex-col gap-y-4 text-sm lg:text-base'>
@@ -20,10 +20,7 @@ const TableOne = ({
                   <h5 className='font-medium'>Código</h5>
                 </th>
                 <th className='p-2 py-4'>
-                  <h5 className='font-medium'>Producto</h5>
-                </th>
-                <th className='p-2 py-4'>
-                  <h5 className='font-medium'>Categoría</h5>
+                  <h5 className='font-medium'>Nombre</h5>
                 </th>
                 <th className='p-2 py-4'>
                   <h5 className='font-medium'>Opciones</h5>
@@ -33,9 +30,8 @@ const TableOne = ({
             <tbody>
               {data.map((item, key) => (
                 <tr key={key}>
-                  <td className='p-2'>{item.code}</td>
+                  <td className='p-2'>{item.id}</td>
                   <td className='p-2 text-nowrap font-medium'>{item.title}</td>
-                  <td className='p-2 text-nowrap'>{item.category_name}</td>
                   <td className='p-2 flex gap-x-2'>
                     <button
                       className='hover:text-primary'
@@ -59,7 +55,7 @@ const TableOne = ({
                     </button>
                     <button
                       className='hover:text-primary'
-                      onClick={() => updateProduct(item.id)}
+                      onClick={() => updateCategory(item.id)}
                     >
                       <svg
                         width='21'
@@ -79,16 +75,6 @@ const TableOne = ({
                   </td>
                 </tr>
               ))}
-              {data.length === 0 && (
-                <tr>
-                  <td
-                    colSpan={6}
-                    className='p-2 py-4 font-medium'
-                  >
-                    No hay productos para mostrar 😢
-                  </td>
-                </tr>
-              )}
             </tbody>
           </table>
         </div>
