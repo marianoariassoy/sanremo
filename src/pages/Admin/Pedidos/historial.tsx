@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Tabla from './tabla-historial'
+import Tabla from './tablahistorial'
 import Loader from '../../../components/Loader'
 import { Order } from '../../../types/order'
 import axios from 'axios'
