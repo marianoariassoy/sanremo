@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-const Successful = ({ title, destination }: { title: string; destination: string }) => {
+const SuccessfulComponent = ({ title, destination }: { title: string; destination: string }) => {
   const navigate = useNavigate()
   return (
     <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur p-4'>
@@ -21,4 +21,4 @@ const Successful = ({ title, destination }: { title: string; destination: string
   )
 }
 
-export default Successful
+export default SuccessfulComponent

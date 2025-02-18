@@ -8,7 +8,7 @@ import axios from 'axios'
 import { BeatLoader } from 'react-spinners'
 import { useAuth } from '../../../context'
 import toast, { Toaster } from 'react-hot-toast'
-import Successful from '../../../components/Successful'
+import SuccessfulComponent from '../../../components/SuccessfulComponent'
 
 const formulario = () => {
   const [products, setProducts] = useState<Product[]>([])
@@ -207,7 +207,7 @@ const formulario = () => {
       <Toaster />
 
       {sended && (
-        <Successful
+        <SuccessfulComponent
           title='El pedido fue realizado correctamente'
           destination='/clientes/historial'
         />
