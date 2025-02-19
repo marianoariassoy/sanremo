@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Tabla from './tabla-pedidos'
 import Loader from '../../../components/Loader'
@@ -9,6 +9,7 @@ import { BeatLoader } from 'react-spinners'
 import { useAuth } from '../../../context'
 import toast, { Toaster } from 'react-hot-toast'
 import SuccessfulComponent from '../../../components/SuccessfulComponent'
+import { J } from 'node_modules/framer-motion/dist/types.d-6pKw1mTI'
 
 const formulario = () => {
   const [products, setProducts] = useState<Product[]>([])
@@ -20,9 +21,12 @@ const formulario = () => {
   const apiUrl = import.meta.env.VITE_API_URL
   const navigate = useNavigate()
   if (!login) navigate('/')
+  const location = useLocation()
+  const { id } = useParams()
 
   useEffect(() => {
     getProducts()
+    if (location.pathname.includes('repetir')) getOrder()
   }, [])
 
   const getProducts = async () => {
@@ -31,6 +35,30 @@ const formulario = () => {
       const response = await axios.get(`${apiUrl}/products`)
       if (response.data) {
         setProducts(response.data)
+        setLoading(false)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getOrder = async () => {
+    if (!id) return
+    try {
+      setLoading(true)
+      const responseProducts = await axios.get(`${apiUrl}/products`)
+      const response = await axios.get(`${apiUrl}/orders/${id}`)
+      if (response.data) {
+        const orders = response.data[0].products
+
+        const productosActualizados = responseProducts.data.map(product => {
+          const cantidadEncontrada = orders.find(order => order.id === product.id)
+          return {
+            ...product,
+            amount: cantidadEncontrada ? cantidadEncontrada.amount : product.amount
+          }
+        })
+        setProducts(productosActualizados)
         setLoading(false)
       }
     } catch (error) {
@@ -124,6 +152,7 @@ const formulario = () => {
             products={products}
             setProducts={setProducts}
           />
+
           <div className='rounded-sm w-full border border-stroke bg-white p-2 lg:px-5 lg:pt-6 pb-2 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-4 text-sm lg:text-base'>
             <div className='flex items-start rounded-sm gap-4'>
               <div className='p-2.5 py-4 w-12 lg:w-26'>
@@ -196,7 +225,7 @@ const formulario = () => {
                 <BeatLoader />
               </div>
             ) : (
-              <button className='inline-flex items-center justify-center bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-20 rounded-lg'>
+              <button className='w-full lg:w-auto bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-20 rounded-lg'>
                 Realizar pedido
               </button>
             )}

@@ -36,10 +36,11 @@ const TableOne = ({
                 >
                   <td className='p-2'>{item.code}</td>
                   <td className='p-2 text-nowrap'>{item.title}</td>
-                  <td className='p-2'>{item.category_name}</td>
+                  <td className='p-2 text-nowrap'>{item.category_name}</td>
                   <td className='p-2'>
                     <input
                       type='number'
+                      value={item.amount}
                       name='amount'
                       id='amount'
                       placeholder='0'

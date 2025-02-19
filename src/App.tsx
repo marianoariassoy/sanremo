@@ -80,6 +80,15 @@ function App() {
               }
             />
             <Route
+              path='/clientes/pedidos/repetir/:id'
+              element={
+                <>
+                  <PageTitle title='Repetir pedido | San Remo' />
+                  <FormularioPedidos />
+                </>
+              }
+            />
+            <Route
               path='clientes/pedidos/:id'
               element={
                 <>

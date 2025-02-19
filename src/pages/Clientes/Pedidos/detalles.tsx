@@ -119,10 +119,17 @@ const detalles = () => {
         </article>
       )}
 
-      <div className='flex justify-end'>
+      <div className='flex flex-col lg:flex-row gap-4 justify-end'>
+        <Link
+          to={`/clientes/pedidos/repetir/${id}`}
+          className='bg-secondary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-20 rounded-lg'
+        >
+          Repetir pedido
+        </Link>
+
         <Link
           to={userData.role === 'admin' ? '/admin/pedidos/historial' : '/clientes/historial'}
-          className='inline-flex items-center justify-center bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-20 rounded-lg'
+          className=' bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-20 rounded-lg'
         >
           Volver al listado
         </Link>
