@@ -156,7 +156,7 @@ const Detalles = ({ order, setIdToDelete }: { order: Order; setIdToDelete: (id: 
           Retira {formatDate(new Date(order.pickup_date))} - {order.pickup_hour} hs.
         </div>
         <div className='flex gap-x-2 justify-between'>
-          <div className='font-bold'>Pedido confirmado</div>
+          <div className='font-bold'>{active ? 'Pedido no confirmado' : 'Pedido confirmado'}</div>
           <div>
             {sending ? (
               <div className='mb-2'>
