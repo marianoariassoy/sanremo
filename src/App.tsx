@@ -4,7 +4,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import Loader from './common/Loader'
 import PageTitle from './components/PageTitle'
 import DefaultLayout from './layout/DefaultLayout'
-import Home from './pages/Inicio'
+// import Home from './pages/Inicio'
 
 // User
 import FormularioPedidos from './pages/Clientes/Pedidos/formulario'
@@ -66,8 +66,8 @@ function App() {
               path='/'
               element={
                 <>
-                  <PageTitle title='San Remo' />
-                  <Home />
+                  <PageTitle title='Formulario de pedidos | San Remo' />
+                  <FormularioPedidos />
                 </>
               }
             />
@@ -133,8 +133,8 @@ function App() {
               path='/'
               element={
                 <>
-                  <PageTitle title='San Remo' />
-                  <Home />
+                  <PageTitle title='Productos | San Remo' />
+                  <Productos />
                 </>
               }
             />

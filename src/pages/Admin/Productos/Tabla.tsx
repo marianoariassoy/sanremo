@@ -67,7 +67,7 @@ const TableOne = ({
               {products.map(item => (
                 <tr
                   key={item.id}
-                  className='w-full  cursor-grab'
+                  className='w-full cursor-grab'
                 >
                   <td className='p-2'>{item.code}</td>
                   <td className='p-2 text-nowrap font-medium'>{item.title}</td>
