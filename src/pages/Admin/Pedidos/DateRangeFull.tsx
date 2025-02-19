@@ -60,12 +60,12 @@ const DateRangeComponent = ({
 
   return (
     <div className='flex flex-col lg:flex-row bg-white shadow-default dark:bg-meta-4'>
-      <div className='w-full lg:w-1/2'>
+      <div className='w-full max-w-xs h-full'>
         <DefinedRange
           locale={es}
           onChange={handleDateChange}
           ranges={[{ key: 'selection' }]}
-          className='bg-white dark:bg-meta-4 w-full'
+          className='bg-white dark:bg-meta-4 w-full border-r-0'
           staticRanges={customStaticRanges}
           inputRanges={[]}
         />
@@ -78,7 +78,7 @@ const DateRangeComponent = ({
           showSelectionPreview={true}
           moveRangeOnFirstSelection={false}
           showDateDisplay={false}
-          className='bg-white dark:bg-meta-4'
+          className='bg-white dark:bg-meta-4 border-l'
           months={2}
           direction='horizontal'
         />

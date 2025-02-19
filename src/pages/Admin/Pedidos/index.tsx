@@ -11,7 +11,6 @@ const detalles = () => {
   const [data, setData] = useState<Order[]>([])
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([])
   const [id_to_delete, setIdToDelete] = useState(0)
-  // const [id_to_update, setIdToUpdate] = useState(0)
   const [loading, setLoading] = useState(true)
   const apiUrl = import.meta.env.VITE_API_URL
 
@@ -51,8 +50,8 @@ const detalles = () => {
       setLoading(true)
       const response = await axios.get(`${apiUrl}/orders`)
       if (response.data) {
-        const data = response.data.filter(order => order.active)
-        setData(data)
+        // const data = response.data.filter(order => order.active)
+        setData(response.data)
         setLoading(false)
       }
     } catch (error) {
@@ -78,7 +77,7 @@ const detalles = () => {
         {loading ? (
           <Loader />
         ) : filteredOrders.length === 0 ? (
-          <div>No hay pedidos en este periodo 🥲</div>
+          <div>No hay pedidos en esta fecha 🥲</div>
         ) : (
           filteredOrders.map(order => {
             return (
@@ -86,6 +85,7 @@ const detalles = () => {
                 key={order.id}
                 order={order}
                 setIdToDelete={setIdToDelete}
+                getOrders={getOrders}
               />
             )
           })

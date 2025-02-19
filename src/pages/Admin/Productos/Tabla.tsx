@@ -1,14 +1,42 @@
+import { useEffect } from 'react'
 import { Product } from '../../../types/product'
+import { ReactSortable } from 'react-sortablejs'
+import axios from 'axios'
 
 const TableOne = ({
-  data,
+  products,
+  setProducts,
   setIdToDelete,
   updateProduct
 }: {
-  data: Product[]
+  products: Product[]
+  setProducts: (products: Product[]) => void
   setIdToDelete: (id: number) => void
   updateProduct: (id: number) => void
 }) => {
+  const apiUrl = import.meta.env.VITE_API_URL
+
+  useEffect(() => {
+    updateOrder()
+  }, [products])
+
+  const updateOrder = async () => {
+    try {
+      const response = await axios.put(`${apiUrl}/products/update/order`, {
+        products
+      })
+      if (response.data.success) {
+        console.log(response.data.message)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  if (products.length === 0) {
+    return <div>No hay productos para mostrar 😢</div>
+  }
+
   return (
     <article className='w-full max-w-5xl flex flex-col gap-y-4 text-sm lg:text-base'>
       <div className='rounded-sm border border-stroke bg-white p-2 lg:px-5 lg:pt-6 pb-2 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 lg:pb-6'>
@@ -30,9 +58,17 @@ const TableOne = ({
                 </th>
               </tr>
             </thead>
-            <tbody>
-              {data.map((item, key) => (
-                <tr key={key}>
+
+            <ReactSortable
+              list={products}
+              setList={setProducts}
+              tag='tbody'
+            >
+              {products.map(item => (
+                <tr
+                  key={item.id}
+                  className='w-full  cursor-grab'
+                >
                   <td className='p-2'>{item.code}</td>
                   <td className='p-2 text-nowrap font-medium'>{item.title}</td>
                   <td className='p-2 text-nowrap'>{item.category_name}</td>
@@ -79,17 +115,7 @@ const TableOne = ({
                   </td>
                 </tr>
               ))}
-              {data.length === 0 && (
-                <tr>
-                  <td
-                    colSpan={6}
-                    className='p-2 py-4 font-medium'
-                  >
-                    No hay productos para mostrar 😢
-                  </td>
-                </tr>
-              )}
-            </tbody>
+            </ReactSortable>
           </table>
         </div>
       </div>

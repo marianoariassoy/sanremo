@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import Tabla from './tabla-pedidos'
-import Loader from '../../../components/Loader'
-import { Product } from '../../../types/product'
 import axios from 'axios'
-import { BeatLoader } from 'react-spinners'
-import { useAuth } from '../../../context'
 import toast, { Toaster } from 'react-hot-toast'
+import { BeatLoader } from 'react-spinners'
+import Tabla from './tabla-pedidos'
+import { Product } from '../../../types/product'
+import { useAuth } from '../../../context'
 import SuccessfulComponent from '../../../components/SuccessfulComponent'
-import { J } from 'node_modules/framer-motion/dist/types.d-6pKw1mTI'
 
 const formulario = () => {
   const [products, setProducts] = useState<Product[]>([])
@@ -142,7 +140,9 @@ const formulario = () => {
       <h1 className='text-2xl lg:text-3xl font-bold'>Realizar Pedido</h1>
 
       {loading ? (
-        <Loader />
+        <div>
+          <BeatLoader />
+        </div>
       ) : (
         <form
           onSubmit={handleSubmit(onSubmit)}

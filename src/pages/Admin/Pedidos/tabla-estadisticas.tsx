@@ -13,13 +13,14 @@ const tablaEstadisticas = ({ users, products, orders }: { users: User[]; product
                 <th className='p-2 py-4 w-16 lg:w-40'>
                   <h5 className='font-medium text-nowrap'>Producto</h5>
                 </th>
+                <th>Total</th>
                 {users.map(user => {
                   return (
                     <th
                       key={user.id}
                       className='p-2 py-4'
                     >
-                      <h5 className='font-medium text-nowrap'>{user.name}</h5>
+                      <h5 className='font-medium text-nowrap'>{user.user}</h5>
                     </th>
                   )
                 })}
@@ -27,9 +28,17 @@ const tablaEstadisticas = ({ users, products, orders }: { users: User[]; product
             </thead>
             <tbody>
               {products.map(item => (
-                <tr key={item.id}>
-                  <td className='p-2 text-nowrap pr-4'>
+                <tr
+                  key={item.id}
+                  className='border-b border-gray-100'
+                >
+                  <td className='p-2 text-nowrap pr-8'>
                     #{item.code} {item.title}
+                  </td>
+                  <td className='font-bold'>
+                    {orders.reduce((acc, order) => {
+                      return acc + order.products.filter(product => product.id === item.id).length
+                    }, 0)}
                   </td>
                   {users.map(user => {
                     return (

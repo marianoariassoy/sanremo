@@ -6,7 +6,7 @@ import axios from 'axios'
 import Confirm from '../../../components/Confirm'
 import Modal from './Modal'
 import { Product } from '../../../types/product'
-import Search from '../../../components/Search'
+// import Search from '../../../components/Search'
 
 const productos = () => {
   const [products, setProducts] = useState<Product[]>([])
@@ -14,7 +14,7 @@ const productos = () => {
   const [id_to_delete, setIdToDelete] = useState(0)
   const [id_to_update, setIdToUpdate] = useState(0)
   const [modal, setModal] = useState(false)
-  const [search, setSearch] = useState('')
+  // const [search, setSearch] = useState('')
   const apiUrl = import.meta.env.VITE_API_URL
 
   const getProducts = async () => {
@@ -56,23 +56,26 @@ const productos = () => {
     setModal(true)
   }
 
-  const productsFiltered = products.filter(
-    item =>
-      item.title.toLowerCase().includes(search.toLowerCase()) || item.code.toLowerCase().includes(search.toLowerCase())
-  )
+  // const productsFiltered = search
+  //   ? products.filter(
+  //       item =>
+  //         item.title.toLowerCase().includes(search.toLowerCase()) ||
+  //         item.code.toLowerCase().includes(search.toLowerCase())
+  //     )
+  //   : products
 
   return (
     <section className='fade-in p-4 md:p-6 2xl:p-10 flex items-start flex-col gap-y-6'>
       <div className='w-full flex flex-col lg:flex-row justify-between gap-4'>
         <div>
-          <h1 className='text-xl lg:text-3xl font-bold'>Productos ({productsFiltered?.length})</h1>
+          <h1 className='text-xl lg:text-3xl font-bold'>Productos ({products?.length})</h1>
         </div>
         <div className='flex flex-col lg:flex-row gap-x-4 gap-y-2'>
-          <Search
+          {/* <Search
             search={search}
             setSearch={setSearch}
             placeholder='Buscar...'
-          />
+          /> */}
           <Link
             className='inline-flex items-center justify-center bg-secondary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-20 rounded-lg text-sm lg:text-base'
             to='/admin/categorias'
@@ -91,7 +94,8 @@ const productos = () => {
         <Loader />
       ) : (
         <Tabla
-          data={productsFiltered}
+          products={products}
+          setProducts={setProducts}
           setIdToDelete={setIdToDelete}
           updateProduct={updateProduct}
         />

@@ -1,21 +1,26 @@
-import { useState, useEffect } from 'react'
-import { useRef } from 'react'
-import { Order } from '../../../types/order'
+import { useState, useEffect, useRef } from 'react'
 import { useReactToPrint } from 'react-to-print'
-import * as XLSX from 'xlsx'
-import { saveAs } from 'file-saver'
-import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast'
 import { BeatLoader } from 'react-spinners'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { Order } from '../../../types/order'
 import formatDate from '../../../utils/date'
 
-const Detalles = ({ order, setIdToDelete }: { order: Order; setIdToDelete: (id: number) => void }) => {
+const Detalles = ({
+  order,
+  setIdToDelete,
+  getOrders
+}: {
+  order: Order
+  setIdToDelete: (id: number) => void
+  getOrders: () => void
+}) => {
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
   const [active, setActive] = useState(order.active)
   const contentRef = useRef<HTMLDivElement>(null)
   const reactToPrintFn = useReactToPrint({ contentRef })
-  const file = `pedido-sanremo-#${order.id}.xlsx`
   const apiUrl = import.meta.env.VITE_API_URL
 
   useEffect(() => {
@@ -24,15 +29,6 @@ const Detalles = ({ order, setIdToDelete }: { order: Order; setIdToDelete: (id: 
     }
   }, [error])
 
-  const exportToExcel = () => {
-    const ws = XLSX.utils.json_to_sheet(order.products)
-    const wb = XLSX.utils.book_new()
-    XLSX.utils.book_append_sheet(wb, ws, 'Detalle de pedido')
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
-    const dataBlob = new Blob([excelBuffer], { type: 'application/octet-stream' })
-    saveAs(dataBlob, file)
-  }
-
   const updadeActive = async () => {
     try {
       setSending(true)
@@ -40,7 +36,7 @@ const Detalles = ({ order, setIdToDelete }: { order: Order; setIdToDelete: (id: 
       if (response.data.success) {
         setActive(!active)
         setSending(false)
-
+        getOrders()
         toast.success(response.data.message, {
           position: 'bottom-right',
           className: 'bg-primary text-white',
@@ -64,12 +60,15 @@ const Detalles = ({ order, setIdToDelete }: { order: Order; setIdToDelete: (id: 
       <div className='border-b border-stroke pb-4 dark:border-strokedark flex items-start justify-between'>
         <div>
           <h2>
-            {order.user_name} - #{order.user_code}
+            {order.user_name} ({order.user_code})
           </h2>
           <p className='text-sm text-secondary'>Fecha de pedido: {formatDate(new Date(order.created_at))}</p>
         </div>
         <div className='flex items-center gap-x-2'>
-          {/* <button className='text-secondary hover:text-primary print:hidden'>
+          <Link
+            to={`/admin/pedidos/modificar/${order.id}`}
+            className='text-secondary hover:text-primary print:hidden'
+          >
             <svg
               width='21'
               height='21'
@@ -84,7 +83,7 @@ const Detalles = ({ order, setIdToDelete }: { order: Order; setIdToDelete: (id: 
                 fill='currentColor'
               ></path>
             </svg>
-          </button> */}
+          </Link>
           <button
             className='text-secondary hover:text-primary print:hidden'
             onClick={() => reactToPrintFn()}
@@ -101,18 +100,6 @@ const Detalles = ({ order, setIdToDelete }: { order: Order; setIdToDelete: (id: 
                 d='M6.99578 4.08398C6.58156 4.08398 6.24578 4.41977 6.24578 4.83398V6.36733H13.7542V5.62451C13.7542 5.42154 13.672 5.22724 13.5262 5.08598L12.7107 4.29545C12.5707 4.15983 12.3835 4.08398 12.1887 4.08398H6.99578ZM15.2542 6.36902V5.62451C15.2542 5.01561 15.0074 4.43271 14.5702 4.00891L13.7547 3.21839C13.3349 2.81151 12.7733 2.58398 12.1887 2.58398H6.99578C5.75314 2.58398 4.74578 3.59134 4.74578 4.83398V6.36902C3.54391 6.41522 2.58374 7.40415 2.58374 8.61733V11.3827C2.58374 12.5959 3.54382 13.5848 4.74561 13.631V15.1665C4.74561 16.4091 5.75297 17.4165 6.99561 17.4165H13.0041C14.2467 17.4165 15.2541 16.4091 15.2541 15.1665V13.6311C16.456 13.585 17.4163 12.596 17.4163 11.3827V8.61733C17.4163 7.40414 16.4561 6.41521 15.2542 6.36902ZM4.74561 11.6217V12.1276C4.37292 12.084 4.08374 11.7671 4.08374 11.3827V8.61733C4.08374 8.20312 4.41953 7.86733 4.83374 7.86733H15.1663C15.5805 7.86733 15.9163 8.20312 15.9163 8.61733V11.3827C15.9163 11.7673 15.6269 12.0842 15.2541 12.1277V11.6217C15.2541 11.2075 14.9183 10.8717 14.5041 10.8717H5.49561C5.08139 10.8717 4.74561 11.2075 4.74561 11.6217ZM6.24561 12.3717V15.1665C6.24561 15.5807 6.58139 15.9165 6.99561 15.9165H13.0041C13.4183 15.9165 13.7541 15.5807 13.7541 15.1665V12.3717H6.24561Z'
                 fill=''
               ></path>
-            </svg>
-          </button>
-          <button
-            className='text-secondary hover:text-primary print:hidden'
-            onClick={exportToExcel}
-          >
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 512 512'
-              className='fill-current w-5 h-5'
-            >
-              <path d='M256 464a208 208 0 1 1 0-416 208 208 0 1 1 0 416zM256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM376.9 294.6c4.5-4.2 7.1-10.1 7.1-16.3c0-12.3-10-22.3-22.3-22.3L304 256l0-96c0-17.7-14.3-32-32-32l-32 0c-17.7 0-32 14.3-32 32l0 96-57.7 0C138 256 128 266 128 278.3c0 6.2 2.6 12.1 7.1 16.3l107.1 99.9c3.8 3.5 8.7 5.5 13.8 5.5s10.1-2 13.8-5.5l107.1-99.9z' />
             </svg>
           </button>
           <button

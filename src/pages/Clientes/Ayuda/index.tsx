@@ -101,6 +101,8 @@ const index = () => {
       <h1 className='text-3xl font-bold mt-3'>¿Necesitas más ayuda? Contactanos</h1>
       <a
         href='https://wa.me/5493417464108'
+        target='_blank'
+        rel='noreferrer'
         className='flex items-center gap-x-2 bg-primary text-white py-4 px-6 rounded-full hover:bg-opacity-90  transition-colors text-sm lg:text-base'
       >
         <svg
