@@ -17,9 +17,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const sidebar = useRef<any>(null)
 
   const storedSidebarExpanded = localStorage.getItem('sidebar-expanded')
-  const [sidebarExpanded, setSidebarExpanded] = useState(
-    storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true'
-  )
+  const [sidebarExpanded] = useState(storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true')
 
   // close on click outside
   useEffect(() => {
@@ -102,7 +100,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   <NavLink
                     to='/admin/pedidos'
                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                      pathname === '/admin/pedidos' && 'bg-graydark dark:bg-meta-4'
+                      (pathname === '/admin/pedidos' || pathname === '/') && 'bg-graydark dark:bg-meta-4'
                     }`}
                   >
                     <svg
@@ -333,7 +331,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   <NavLink
                     to='/clientes/pedidos'
                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                      pathname === '/clientes/pedidos' && 'bg-graydark dark:bg-meta-4'
+                      (pathname === '/clientes/pedidos' || pathname === '/') && 'bg-graydark dark:bg-meta-4'
                     }`}
                   >
                     <svg
