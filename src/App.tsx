@@ -127,14 +127,15 @@ function App() {
             />
           </>
         )}
+
         {isLoggedIn && userData.role === 'admin' && (
           <>
             <Route
               path='/'
               element={
                 <>
-                  <PageTitle title='Productos | San Remo' />
-                  <Productos />
+                  <PageTitle title='Listado de pedidos | San Remo' />
+                  <Pedidos />
                 </>
               }
             />
