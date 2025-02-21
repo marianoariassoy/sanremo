@@ -29,19 +29,6 @@ const productos = () => {
     }
   }
 
-  const getProducts = async () => {
-    try {
-      setLoading(true)
-      const response = await axios.get(`${apiUrl}/products`)
-      if (response.data) {
-        setProducts(response.data)
-        setLoading(false)
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   const deleteItem = async (id: number) => {
     setIdToDelete(0)
     try {

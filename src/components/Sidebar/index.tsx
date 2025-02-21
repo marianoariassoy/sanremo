@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import Logo from '../../images/logo/logo.png'
 import { useAuth } from '../../context'
+import { File } from '../../types/file'
+import axios from 'axios'
 
 interface SidebarProps {
   sidebarOpen: boolean
@@ -12,6 +14,27 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const location = useLocation()
   const { pathname } = location
   const { userData } = useAuth()
+
+  const [loading, setLoading] = useState(true)
+  const [files, setFiles] = useState<File[]>([])
+  const apiUrl = import.meta.env.VITE_API_URL
+
+  const getFiles = async () => {
+    try {
+      setLoading(true)
+      const response = await axios.get(`${apiUrl}/files`)
+      if (response.data) {
+        setFiles(response.data)
+        setLoading(false)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getFiles()
+  }, [])
 
   const trigger = useRef<any>(null)
   const sidebar = useRef<any>(null)
@@ -314,7 +337,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         fill=''
                       ></path>
                     </svg>
-                    Descargas
+                    Archivos
                   </NavLink>
                 </li>
               </ul>
@@ -403,7 +426,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </li>
                 <li>
                   <a
-                    href='https://ligadecapitanes.com.ar/sanremo-api/uploads/catalogo-sanremo.xlsx'
+                    href={files.find(file => file.category === 1)?.file}
                     target='_blank'
                     rel='noreferrer'
                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4`}
@@ -438,7 +461,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </li>
                 <li>
                   <a
-                    href='https://ligadecapitanes.com.ar/sanremo-api/uploads/listadeprecios-sanremo.xlsx'
+                    href={files.find(file => file.category === 2)?.file}
                     target='_blank'
                     rel='noreferrer'
                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4`}
