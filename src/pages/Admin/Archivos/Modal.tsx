@@ -32,23 +32,24 @@ const ModalArchivos = ({
   const onSubmit = async () => {
     setError('')
     setSending(true)
-
     const formData = new FormData()
     formData.append('data', JSON.stringify(file))
-    formData.append('file', fileMain)
+    if (fileMain) {
+      formData.append('file', fileMain)
+    }
 
     try {
       if (updateFile) {
-        const response = await axios.put(`${apiUrl}/files/${id_to_update}`, formData, {
+        const response = await axios.post(`${apiUrl}/files/${id_to_update}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         })
-        if (response.data.success) {
+        if (response?.data?.success) {
           getFiles()
           setModal(false)
         } else {
-          setError(response.data.message)
+          setError(response.data?.message)
           setSending(false)
         }
       } else {
@@ -74,6 +75,7 @@ const ModalArchivos = ({
   useEffect(() => {
     if (id_to_update) {
       const file = files.find(file => file.id === id_to_update)
+
       if (file) {
         setFile(file)
         setUpdateFile(true)
@@ -150,12 +152,14 @@ const ModalArchivos = ({
                   </option>
                   <option
                     value='1'
+                    selected={file.category === 1}
                     className='text-body dark:text-bodydark'
                   >
                     Catálogo
                   </option>
                   <option
                     value='2'
+                    selected={file.category === 2}
                     className='text-body dark:text-bodydark'
                   >
                     Listado de precios

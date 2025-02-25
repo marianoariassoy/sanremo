@@ -110,9 +110,7 @@ const SignIn: React.FC = () => {
           <div className='w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2'>
             <div className='w-full p-4 sm:p-12.5 xl:p-17.5'>
               <span className='mb-1.5 block font-medium'>Iniciar sesión</span>
-              <h2 className='mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2'>
-                Panificadora San Remo SRL
-              </h2>
+              <h2 className='mb-9 text-2xl font-bold text-black dark:text-white'>Panificadora San Remo SRL</h2>
 
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='mb-4'>
@@ -145,7 +143,7 @@ const SignIn: React.FC = () => {
                 </div>
 
                 <div className='mb-6'>
-                  <div className='flex justify-between items-center'>
+                  <div className='flex justify-between items-center pr-4'>
                     <label className='mb-2.5 block font-medium text-black dark:text-white'>Contraseña</label>
                     <button
                       type='button'
