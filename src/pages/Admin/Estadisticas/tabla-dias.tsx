@@ -20,7 +20,7 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
 
   const weekDays = eachDayOfInterval({
     start: startOfWeek(startDate, { weekStartsOn: 1 }),
-    end: endOfWeek(startDate, { weekStartsOn: 1 })
+    end: endOfWeek(startDate, { weekStartsOn: 0 })
   })
 
   const filterOrders = (start: Date, end: Date) => {

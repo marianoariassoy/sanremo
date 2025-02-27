@@ -573,15 +573,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           </nav>
         )}
       </div>
-      <div className='p-6 flex-1 relative flex flex-col justify-end'>
-        <a
-          href='http://www.borderlain.com'
-          target='_blank'
-          rel='noreferrer'
-          className='hover:underline  text-white/30'
-        >
-          Desarrollo: Borderlain
-        </a>
+      <div className='p-6 flex flex-1 relative flex-col justify-end'>
+        <div className='text-white/30 flex gap-x-1'>
+          <span>Desarrollo:</span>
+          <a
+            href='http://www.borderlain.com'
+            target='_blank'
+            rel='noreferrer'
+            className='hover:underline '
+          >
+            Borderlain
+          </a>
+        </div>
       </div>
     </aside>
   )
