@@ -59,6 +59,10 @@ const detalles = () => {
     }
   }
 
+  const updateOrder = async () => {
+    const newOrder = data.map()
+  }
+
   const deleteItem = async (id: number) => {
     setIdToDelete(0)
     try {

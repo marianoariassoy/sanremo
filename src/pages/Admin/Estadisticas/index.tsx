@@ -6,10 +6,10 @@ import EtadisticasSemanas from './estadisticas-semanas'
 const index = () => {
   return (
     <section>
+      <EstadisticasClientes />
       <EstadisticasDias />
       <EtadisticasSemanas />
       <EstadisticasMeses />
-      <EstadisticasClientes />
     </section>
   )
 }

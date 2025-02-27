@@ -36,10 +36,9 @@ const Detalles = ({
       if (response.data.success) {
         setActive(!active)
         setSending(false)
-        getOrders()
+        // getOrders()
         toast.success(response.data.message, {
           position: 'bottom-right',
-          className: 'bg-primary text-white',
           duration: 4000
         })
       } else {
