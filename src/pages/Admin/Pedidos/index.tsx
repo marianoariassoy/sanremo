@@ -50,17 +50,13 @@ const detalles = () => {
       setLoading(true)
       const response = await axios.get(`${apiUrl}/orders`)
       if (response.data) {
-        // const data = response.data.filter(order => order.active)
         setData(response.data)
+        setFilteredOrders(response.data)
         setLoading(false)
       }
     } catch (error) {
       console.log(error)
     }
-  }
-
-  const updateOrder = async () => {
-    const newOrder = data.map()
   }
 
   const deleteItem = async (id: number) => {
