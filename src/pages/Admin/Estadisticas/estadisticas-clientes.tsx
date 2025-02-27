@@ -3,10 +3,10 @@ import axios from 'axios'
 import { User } from '../../../types/users'
 import { Product } from '../../../types/product'
 import { Order } from '../../../types/order'
-import Tabla from './tabla-estadisticas'
+import Tabla from './tabla-clientes'
 import Loader from '../../../components/Loader'
 import { parseISO } from 'date-fns'
-import DateRange from './DateRangeFull'
+import DateRange from '../Pedidos/DateRangeFull'
 
 const estadisticas = () => {
   const [users, setUser] = useState<User[]>([])

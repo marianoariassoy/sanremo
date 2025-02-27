@@ -11,9 +11,8 @@ const tablaEstadisticas = ({ users, products, orders }: { users: User[]; product
             <thead className='rounded-sm bg-gray-2 dark:bg-meta-4 mb-3'>
               <tr className='text-left'>
                 <th className='p-2 py-4 w-16 lg:w-40'>
-                  <h5 className='font-medium text-nowrap'>Producto</h5>
+                  <h5 className='font-medium text-nowrap'>Producto/Cliente</h5>
                 </th>
-                <th>Total</th>
                 {users.map(user => {
                   return (
                     <th
@@ -24,6 +23,7 @@ const tablaEstadisticas = ({ users, products, orders }: { users: User[]; product
                     </th>
                   )
                 })}
+                <th>Total</th>
               </tr>
             </thead>
             <tbody>
@@ -35,11 +35,7 @@ const tablaEstadisticas = ({ users, products, orders }: { users: User[]; product
                   <td className='p-2 text-nowrap pr-8'>
                     #{item.code} {item.title}
                   </td>
-                  <td className='font-bold'>
-                    {orders.reduce((acc, order) => {
-                      return acc + order.products.filter(product => product.id === item.id).length
-                    }, 0)}
-                  </td>
+
                   {users.map(user => {
                     return (
                       <td
@@ -54,6 +50,11 @@ const tablaEstadisticas = ({ users, products, orders }: { users: User[]; product
                       </td>
                     )
                   })}
+                  <td className='font-bold'>
+                    {orders.reduce((acc, order) => {
+                      return acc + order.products.filter(product => product.id === item.id).length
+                    }, 0)}
+                  </td>
                 </tr>
               ))}
             </tbody>

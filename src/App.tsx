@@ -19,7 +19,7 @@ import Clientes from './pages/Admin/Clientes'
 import Pedidos from './pages/Admin/Pedidos'
 
 import PedidosHistorial from './pages/Admin/Pedidos/historial'
-import PedidosEstadisticas from './pages/Admin/Pedidos/estadisticas'
+import PedidosEstadisticas from './pages/Admin/Estadisticas/'
 import PedidosModificar from './pages/Admin/Pedidos/modificar'
 
 import Archivos from './pages/Admin/Archivos/'
