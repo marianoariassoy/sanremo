@@ -6,7 +6,6 @@ import axios from 'axios'
 import Confirm from '../../../components/Confirm'
 import Modal from './Modal'
 import { Product } from '../../../types/product'
-// import Search from '../../../components/Search'
 
 const productos = () => {
   const [products, setProducts] = useState<Product[]>([])
@@ -14,7 +13,7 @@ const productos = () => {
   const [id_to_delete, setIdToDelete] = useState(0)
   const [id_to_update, setIdToUpdate] = useState(0)
   const [modal, setModal] = useState(false)
-  // const [search, setSearch] = useState('')
+
   const apiUrl = import.meta.env.VITE_API_URL
 
   const getProducts = async () => {
