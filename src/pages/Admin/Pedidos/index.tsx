@@ -15,10 +15,13 @@ const detalles = () => {
   const apiUrl = import.meta.env.VITE_API_URL
 
   const today = new Date()
+
   const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate())
-  const endOfTodary = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+  const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate())
   const [startDate, setStartDate] = useState(startOfToday)
-  const [endDate, setEndDate] = useState(endOfTodary)
+  const [endDate, setEndDate] = useState(endOfToday)
+
+  console.log(startOfToday)
 
   useEffect(() => {
     getOrders()
