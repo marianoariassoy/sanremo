@@ -91,7 +91,7 @@ const estadisticas = () => {
   }
 
   return (
-    <section className='fade-in p-4 md:p-6 2xl:p-10 flex flex-col gap-y-6'>
+    <section className='fade-in flex flex-col gap-y-6'>
       {loadingUsers || loadingProducts || loadingOrders ? (
         <Loader />
       ) : (

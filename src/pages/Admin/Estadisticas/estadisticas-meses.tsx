@@ -5,7 +5,7 @@ import { Order } from '../../../types/order'
 import Tabla from './tabla-meses'
 import Loader from '../../../components/Loader'
 
-const estadisticas = () => {
+const estadisticas = ({ clients }: { clients: string }) => {
   const [products, setProducts] = useState<Product[]>([])
   const [orders, setOrders] = useState<Order[]>([])
   const [loadingProducts, setLoadingProducts] = useState(true)
@@ -30,7 +30,11 @@ const estadisticas = () => {
       setLoadingOrders(true)
       const response = await axios.get(`${apiUrl}/orders`)
       if (response.data) {
-        setOrders(response.data)
+        if (clients === 'all') {
+          setOrders(response.data)
+        } else {
+          setOrders(response.data.filter(order => order.user_id === +clients))
+        }
         setLoadingOrders(false)
       }
     } catch (error) {
@@ -41,10 +45,10 @@ const estadisticas = () => {
   useEffect(() => {
     getProducts()
     getOrders()
-  }, [])
+  }, [clients])
 
   return (
-    <section className='fade-in p-4 md:p-6 2xl:p-10 flex flex-col gap-y-6'>
+    <section className='fade-in'>
       {loadingProducts || loadingOrders ? (
         <Loader />
       ) : (

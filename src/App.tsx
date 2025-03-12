@@ -20,6 +20,7 @@ import Pedidos from './pages/Admin/Pedidos'
 
 import PedidosHistorial from './pages/Admin/Pedidos/historial'
 import PedidosEstadisticas from './pages/Admin/Estadisticas/'
+import PedidosEstadisticasClientes from './pages/Admin/Estadisticas/clientes'
 import PedidosModificar from './pages/Admin/Pedidos/modificar'
 
 import Archivos from './pages/Admin/Archivos/'
@@ -205,8 +206,17 @@ function App() {
               path='/admin/pedidos/estadisticas'
               element={
                 <>
-                  <PageTitle title='Estadísticas | San Remo' />
+                  <PageTitle title='Estadísticas Generales | San Remo' />
                   <PedidosEstadisticas />
+                </>
+              }
+            />
+            <Route
+              path='/admin/pedidos/estadisticas/clientes'
+              element={
+                <>
+                  <PageTitle title='Estadísticas Clientes | San Remo' />
+                  <PedidosEstadisticasClientes />
                 </>
               }
             />
@@ -221,6 +231,66 @@ function App() {
             />
           </>
         )}
+
+        {isLoggedIn && userData.role === 'pedidos' && (
+          <>
+            <Route
+              path='/'
+              element={
+                <>
+                  <PageTitle title='Listado de pedidos | San Remo' />
+                  <Pedidos />
+                </>
+              }
+            />
+            <Route
+              path='/admin/categorias'
+              element={
+                <>
+                  <PageTitle title='Categorias | San Remo' />
+                  <Categorias />
+                </>
+              }
+            />
+            <Route
+              path='/admin/pedidos'
+              element={
+                <>
+                  <PageTitle title='Listado de pedidos | San Remo' />
+                  <Pedidos />
+                </>
+              }
+            />
+            <Route
+              path='/admin/pedidos/historial'
+              element={
+                <>
+                  <PageTitle title='Historial de pedidos | San Remo' />
+                  <PedidosHistorial />
+                </>
+              }
+            />
+            <Route
+              path='/admin/pedidos/detalles/:id'
+              element={
+                <>
+                  <PageTitle title='Detalles del pedido | San Remo' />
+                  <PedidosDetalles />
+                </>
+              }
+            />
+            <Route
+              path='/admin/pedidos/modificar/:id'
+              element={
+                <>
+                  <PageTitle title='Modificar pedido | San Remo' />
+                  <PedidosModificar />
+                </>
+              }
+            />
+          </>
+        )}
+
         <Route
           path='*'
           element={

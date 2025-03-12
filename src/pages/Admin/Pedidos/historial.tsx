@@ -15,7 +15,7 @@ const historialAdmin = () => {
   const apiUrl = import.meta.env.VITE_API_URL
 
   const today = new Date()
-  const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 3)
+  const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 60)
   const endOfTodary = new Date(today.getFullYear(), today.getMonth(), today.getDate())
   const [startDate, setStartDate] = useState(startOfToday)
   const [endDate, setEndDate] = useState(endOfTodary)
@@ -79,7 +79,7 @@ const historialAdmin = () => {
 
   return (
     <section className='fade-in p-4 md:p-6 2xl:p-10 flex flex-col gap-y-6'>
-      <div className='w-full 0'>
+      <div className='w-full'>
         <h1 className='text-2xl lg:text-3xl font-bold'>Historial de pedidos</h1>
       </div>
       <div className='flex gap-4 flex-col-reverse lg:flex-row'>

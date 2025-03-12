@@ -21,8 +21,6 @@ const detalles = () => {
   const [startDate, setStartDate] = useState(startOfToday)
   const [endDate, setEndDate] = useState(endOfToday)
 
-  console.log(startOfToday)
-
   useEffect(() => {
     getOrders()
   }, [])
@@ -54,7 +52,7 @@ const detalles = () => {
       const response = await axios.get(`${apiUrl}/orders`)
       if (response.data) {
         setData(response.data)
-        setFilteredOrders(response.data)
+        // setFilteredOrders(response.data)
         setLoading(false)
       }
     } catch (error) {

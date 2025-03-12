@@ -38,7 +38,7 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
   }
 
   return (
-    <article className='w-full flex flex-col gap-y-4 text-sm lg:text-base'>
+    <section className='flex flex-col gap-y-4 text-sm lg:text-base'>
       <div className='flex'>
         <button
           className='flex-1 flex justify-center'
@@ -124,7 +124,7 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
           </table>
         </div>
       </div>
-    </article>
+    </section>
   )
 }
 
