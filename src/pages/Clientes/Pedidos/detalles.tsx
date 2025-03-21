@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useReactToPrint } from 'react-to-print'
-import * as XLSX from 'xlsx'
-import { saveAs } from 'file-saver'
+// import * as XLSX from 'xlsx'
+// import { saveAs } from 'file-saver'
 import axios from 'axios'
 import Loader from '../../../components/Loader'
 import { Order } from '../../../types/order'
 import { useAuth } from '../../../context'
 import formatDate from '../../../utils/date'
+import { user } from '@heroui/theme'
 
 const detalles = () => {
   const { id } = useParams()
@@ -35,17 +36,17 @@ const detalles = () => {
 
   const contentRef = useRef<HTMLDivElement>(null)
   const reactToPrintFn = useReactToPrint({ contentRef })
-  const file = `pedido-sanremo.xlsx`
+  // const file = `pedido-sanremo.xlsx`
 
-  const exportToExcel = () => {
-    const ws = XLSX.utils.json_to_sheet(data)
-    const wb = XLSX.utils.book_new()
-    XLSX.utils.book_append_sheet(wb, ws, 'Detalle del pedido')
+  // const exportToExcel = () => {
+  //   const ws = XLSX.utils.json_to_sheet(data)
+  //   const wb = XLSX.utils.book_new()
+  //   XLSX.utils.book_append_sheet(wb, ws, 'Detalle del pedido')
 
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
-    const dataBlob = new Blob([excelBuffer], { type: 'application/octet-stream' })
-    saveAs(dataBlob, file)
-  }
+  //   const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
+  //   const dataBlob = new Blob([excelBuffer], { type: 'application/octet-stream' })
+  //   saveAs(dataBlob, file)
+  // }
 
   return (
     <section className='fade-in p-4 md:p-6 2xl:p-10 flex flex-col gap-y-6 max-w-5xl'>
@@ -108,12 +109,14 @@ const detalles = () => {
       )}
 
       <div className='flex flex-col lg:flex-row gap-4 justify-end'>
-        <Link
-          to={`/clientes/pedidos/repetir/${id}`}
-          className='bg-secondary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-20 rounded-lg'
-        >
-          Repetir pedido
-        </Link>
+        {userData.role !== 'admin' && (
+          <Link
+            to={`/clientes/pedidos/repetir/${id}`}
+            className='bg-secondary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-20 rounded-lg'
+          >
+            Repetir pedido
+          </Link>
+        )}
 
         <Link
           to={userData.role === 'admin' ? '/admin/pedidos/historial' : '/clientes/historial'}
