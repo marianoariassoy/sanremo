@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [userData, setUserData] = useState<User>({ id: 0, name: '', user: '', role: '' })
 
   const login = (token: string) => {
-    setCookie('sanremo', token, { expires: 3 })
+    setCookie('sanremo', token)
     const decode = jwtDecode<User>(token)
     setUserData(decode)
     setIsLoggedIn(true)

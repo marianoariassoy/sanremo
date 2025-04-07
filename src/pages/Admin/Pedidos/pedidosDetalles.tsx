@@ -129,11 +129,11 @@ const Detalles = ({
         {order.products.map(item => (
           <div
             key={item.id}
-            className='flex justify-between border-b border-gray-100 dark:border-strokedark py-1'
+            className='flex gap-x-3 border-b border-gray-100 dark:border-strokedark py-1'
           >
-            <div className='w-12'>{item.code}</div>
+            <div className='min-w-12'>{item.code}</div>
+            <div className='min-w-10'>{item.amount} u</div>
             <div className='flex-1'>{item.title}</div>
-            <div>{item.amount} u</div>
           </div>
         ))}
       </div>
