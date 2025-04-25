@@ -29,9 +29,9 @@ const TableOne = ({ data }: { data: Order[] }) => {
                   className='border-b border-gray-100 dark:border-strokedark'
                 >
                   <td className='p-2 0'>#{item.id}</td>
-                  <td className='p-2 font-medium'>{formatDate(new Date(item.created_at))} </td>
+                  <td className='p-2 font-medium'>{formatDate(item.created_at)} </td>
                   <td className='p-2 font-medium text-nowrap'>
-                    {formatDate(new Date(item.pickup_date))} {item.pickup_hour} hs.
+                    {formatDate(item.pickup_date)} {item.pickup_hour} hs.
                   </td>
                   <td className='p-2 flex justify-end'>
                     <Link

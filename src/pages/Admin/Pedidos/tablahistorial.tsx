@@ -26,7 +26,7 @@ const TableOne = ({ data }: { data: Order[] }) => {
               {data.map((item, key) => (
                 <tr key={key}>
                   <td className='p-2 w-16 lg:w-40'>#{item.id}</td>
-                  <td className='p-2 flex-1 font-medium'>{formatDate(new Date(item.created_at))}</td>
+                  <td className='p-2 flex-1 font-medium'>{formatDate(item.created_at)}</td>
                   <td className='p-2.5 py-4 text-nowrap'>{item.user_name}</td>
                   <td className='p-2 flex justify-end'>
                     <Link

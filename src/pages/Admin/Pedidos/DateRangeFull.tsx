@@ -17,15 +17,15 @@ const DateRangeComponent = ({
     {
       label: 'Hoy',
       range: () => ({
-        startDate: new Date(),
-        endDate: new Date()
+        startDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
+        endDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())
       })
     },
     {
       label: 'Ayer',
       range: () => ({
-        startDate: addDays(new Date(), -1),
-        endDate: addDays(new Date(), -1)
+        startDate: addDays(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()), -1),
+        endDate: addDays(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()), -1)
       })
     },
     {

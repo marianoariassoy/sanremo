@@ -61,7 +61,7 @@ const Detalles = ({
           <h2>
             {order.user_name} ({order.user_code})
           </h2>
-          <p className='text-sm text-secondary'>Fecha de pedido: {formatDate(new Date(order.created_at))}</p>
+          <p className='text-sm text-secondary'>Fecha de pedido: {formatDate(order.created_at)}</p>
         </div>
         <div className='flex items-center gap-x-2'>
           <Link
@@ -139,7 +139,7 @@ const Detalles = ({
       </div>
       <div className='flex flex-col gap-y-2'>
         <div className='font-bold'>
-          Retira {formatDate(new Date(order.pickup_date))} - {order.pickup_hour} hs.
+          Retira {formatDate(order.pickup_date)} - {order.pickup_hour} hs.
         </div>
         <div className='flex gap-x-2 justify-between'>
           <div className='font-bold'>{active ? 'Pedido no confirmado' : 'Pedido confirmado'}</div>

@@ -1,8 +1,6 @@
-const formatDate = (date: Date) => {
-  const day = date.getDate() + 1
-  const month = date.getMonth() + 1
-  const year = date.getFullYear()
-  return `${day}/${month}/${year}`
+function formatDate(date: string): string {
+  const [year, month, day] = date.split('-')
+  return `${day}-${month}-${year}`
 }
 
 export default formatDate

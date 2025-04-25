@@ -21,10 +21,10 @@ const TableOne = ({
                   <h5 className='font-medium'>Producto</h5>
                 </th>
                 <th className='p-2 py-4'>
-                  <h5 className='font-medium'>Categoría</h5>
+                  <h5 className='font-medium'>Cantidad</h5>
                 </th>
                 <th className='p-2 py-4'>
-                  <h5 className='font-medium'>Cantidad</h5>
+                  <h5 className='font-medium'>Categoría</h5>
                 </th>
               </tr>
             </thead>
@@ -36,7 +36,6 @@ const TableOne = ({
                 >
                   <td className='p-2'>{item.code}</td>
                   <td className='p-2 text-nowrap'>{item.title}</td>
-                  <td className='p-2 text-nowrap'>{item.category_name}</td>
                   <td className='p-2'>
                     <input
                       type='number'
@@ -62,6 +61,7 @@ const TableOne = ({
                       }}
                     />
                   </td>
+                  <td className='p-2 text-nowrap'>{item.category_name}</td>
                 </tr>
               ))}
             </tbody>

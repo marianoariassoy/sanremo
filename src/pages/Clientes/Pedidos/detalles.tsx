@@ -53,9 +53,9 @@ const detalles = () => {
                   </h3>
                 )}
                 <p className='text-sm font-bold'>
-                  Fecha de retiro: {formatDate(new Date(data[0].pickup_date))} {data[0].pickup_hour} hs.
+                  Fecha de retiro: {formatDate(data[0].pickup_date)} {data[0].pickup_hour} hs.
                 </p>
-                <p className='text-sm text-secondary'>Fecha de pedido: {formatDate(new Date(data[0].created_at))}</p>
+                <p className='text-sm text-secondary'>Fecha de pedido: {formatDate(data[0].created_at)}</p>
               </div>
             </div>
             <div className='flex items-center gap-x-2'>

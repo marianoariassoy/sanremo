@@ -99,14 +99,28 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
                         {filteredOrders
                           .filter(order => getMonth(order.created_at) == month.getMonth() + 1)
                           .reduce((acc, order) => {
-                            return acc + order.products.filter(product => product.id === item.id).length
+                            return (
+                              acc +
+                              order.products
+                                .filter(product => product.id === item.id)
+                                .reduce((acc_product, product) => {
+                                  return acc_product + product.amount
+                                }, 0)
+                            )
                           }, 0)}
                       </td>
                     )
                   })}
                   <td className='font-bold'>
                     {filteredOrders.reduce((acc, order) => {
-                      return acc + order.products.filter(product => product.id === item.id).length
+                      return (
+                        acc +
+                        order.products
+                          .filter(product => product.id === item.id)
+                          .reduce((acc_product, product) => {
+                            return acc_product + product.amount
+                          }, 0)
+                      )
                     }, 0)}
                   </td>
                 </tr>

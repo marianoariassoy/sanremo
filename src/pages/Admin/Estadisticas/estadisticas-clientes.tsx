@@ -85,6 +85,8 @@ const estadisticas = () => {
     filterOrders(startDate, endDate)
   }, [orders])
 
+  console.log(orders)
+
   const handleDateChange = (ranges: any) => {
     setStartDate(ranges.selection.startDate)
     setEndDate(ranges.selection.endDate)
