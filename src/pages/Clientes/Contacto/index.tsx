@@ -40,10 +40,10 @@ const index = () => {
           ></path>
         </svg>
         <span className='hidden lg:block'>
-          E-mail: <span className='underline'>contacto@panificadorasanremo.com.ar</span>
+          E-mail: <span className='underline'>ventas@panificadorasanremo.com</span>
         </span>
         <span className='block lg:hidden'>
-          <span className='underline'>contacto@panificadorasanremo.com.ar</span>
+          <span className='underline'>ventas@panificadorasanremo.com</span>
         </span>
       </a>
     </section>

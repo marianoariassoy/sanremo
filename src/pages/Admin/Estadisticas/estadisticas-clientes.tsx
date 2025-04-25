@@ -54,8 +54,10 @@ const estadisticas = () => {
     try {
       setLoadingOrders(true)
       const response = await axios.get(`${apiUrl}/orders`)
+
       if (response.data) {
-        setOrders(response.data)
+        const data = response.data.filter(order => !order.active)
+        setOrders(data)
         setLoadingOrders(false)
       }
     } catch (error) {

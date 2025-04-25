@@ -31,9 +31,11 @@ const estadisticas = ({ clients }: { clients: string }) => {
       const response = await axios.get(`${apiUrl}/orders`)
       if (response.data) {
         if (clients === 'all') {
-          setOrders(response.data)
+          const data = response.data.filter(order => !order.active)
+          setOrders(data)
         } else {
-          setOrders(response.data.filter(order => order.user_code === clients))
+          const data = response.data.filter(order => !order.active)
+          setOrders(data.filter(order => order.user_code === clients))
         }
         setLoadingOrders(false)
       }
