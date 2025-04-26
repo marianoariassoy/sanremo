@@ -67,7 +67,7 @@ const estadisticas = () => {
 
   const filterOrders = (start: Date, end: Date) => {
     const filtered = orders.filter(order => {
-      const orderDate = parseISO(order.created_at)
+      const orderDate = parseISO(order.pickup_date)
       return orderDate >= start && orderDate <= end
     })
     setFilteredOrders(filtered)
@@ -86,8 +86,6 @@ const estadisticas = () => {
   useEffect(() => {
     filterOrders(startDate, endDate)
   }, [orders])
-
-  console.log(orders)
 
   const handleDateChange = (ranges: any) => {
     setStartDate(ranges.selection.startDate)

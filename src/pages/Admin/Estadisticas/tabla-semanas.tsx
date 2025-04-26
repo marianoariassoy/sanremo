@@ -28,7 +28,7 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
   )
 
   const filterOrders = (start: Date, end: Date) => {
-    const result = orders.filter(date => new Date(date.created_at) >= start && new Date(date.created_at) <= end)
+    const result = orders.filter(date => new Date(date.pickup_date) >= start && new Date(date.pickup_date) <= end)
     setFilteredOrders(result)
   }
 
@@ -74,6 +74,7 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
                 <th className='p-2 py-4 w-16 lg:w-40'>
                   <h5 className='font-medium text-nowrap'>Producto/Semana</h5>
                 </th>
+                <th className='pr-8'>Total</th>
                 {weeks.map((weekStart, index) => {
                   return (
                     <th
@@ -86,7 +87,6 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
                     </th>
                   )
                 })}
-                <th>Total</th>
               </tr>
             </thead>
             <tbody>
@@ -98,6 +98,18 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
                   <td className='p-2 text-nowrap pr-8'>
                     #{item.code} {item.title}
                   </td>
+                  <td className='font-bold'>
+                    {filteredOrders.reduce((acc, order) => {
+                      return (
+                        acc +
+                        order.products
+                          .filter(product => product.id === item.id)
+                          .reduce((acc_product, product) => {
+                            return acc_product + product.amount
+                          }, 0)
+                      )
+                    }, 0)}
+                  </td>
 
                   {weeks.map((day, index) => {
                     return (
@@ -106,7 +118,7 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
                         className='p-2'
                       >
                         {filteredOrders
-                          .filter(order => getWeek(new Date(order.created_at)) == getWeek(day))
+                          .filter(order => getWeek(new Date(order.pickup_date)) == getWeek(day))
                           .reduce((acc, order) => {
                             return (
                               acc +
@@ -120,18 +132,6 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
                       </td>
                     )
                   })}
-                  <td className='font-bold'>
-                    {filteredOrders.reduce((acc, order) => {
-                      return (
-                        acc +
-                        order.products
-                          .filter(product => product.id === item.id)
-                          .reduce((acc_product, product) => {
-                            return acc_product + product.amount
-                          }, 0)
-                      )
-                    }, 0)}
-                  </td>
                 </tr>
               ))}
             </tbody>

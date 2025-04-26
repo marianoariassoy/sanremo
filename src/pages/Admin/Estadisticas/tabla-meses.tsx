@@ -67,6 +67,8 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
                 <th className='p-2 py-4 w-16 lg:w-40'>
                   <h5 className='font-medium text-nowrap'>Producto/Mes</h5>
                 </th>
+                <th className='pr-8'>Total</th>
+
                 {months.map((month, index) => {
                   return (
                     <th
@@ -77,7 +79,6 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
                     </th>
                   )
                 })}
-                <th>Total</th>
               </tr>
             </thead>
             <tbody>
@@ -89,7 +90,18 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
                   <td className='p-2 text-nowrap pr-8'>
                     #{item.code} {item.title}
                   </td>
-
+                  <td className='font-bold'>
+                    {filteredOrders.reduce((acc, order) => {
+                      return (
+                        acc +
+                        order.products
+                          .filter(product => product.id === item.id)
+                          .reduce((acc_product, product) => {
+                            return acc_product + product.amount
+                          }, 0)
+                      )
+                    }, 0)}
+                  </td>
                   {months.map((month, index) => {
                     return (
                       <td
@@ -97,7 +109,7 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
                         className='p-2'
                       >
                         {filteredOrders
-                          .filter(order => getMonth(order.created_at) == month.getMonth() + 1)
+                          .filter(order => getMonth(order.pickup_date) == month.getMonth() + 1)
                           .reduce((acc, order) => {
                             return (
                               acc +
@@ -111,18 +123,6 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
                       </td>
                     )
                   })}
-                  <td className='font-bold'>
-                    {filteredOrders.reduce((acc, order) => {
-                      return (
-                        acc +
-                        order.products
-                          .filter(product => product.id === item.id)
-                          .reduce((acc_product, product) => {
-                            return acc_product + product.amount
-                          }, 0)
-                      )
-                    }, 0)}
-                  </td>
                 </tr>
               ))}
             </tbody>

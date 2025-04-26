@@ -34,8 +34,10 @@ const estadisticas = ({ clients }: { clients: string }) => {
           const data = response.data.filter(order => !order.active)
           setOrders(data)
         } else {
-          const data = response.data.filter(order => !order.active)
-          setOrders(data.filter(order => order.user_code === clients))
+          const activeOrders = response.data.filter(order => !order.active)
+          const data = activeOrders.filter(order => order.user_id === +clients)
+          setOrders(data)
+          console.log(data)
         }
         setLoadingOrders(false)
       }

@@ -7,8 +7,6 @@ import Filter from './filter'
 const index = () => {
   const [clients, setClients] = useState<string>('all')
 
-  console.log(clients)
-
   return (
     <section className='fade-in p-4 md:p-6 2xl:p-10 flex flex-col gap-y-12'>
       <div>
