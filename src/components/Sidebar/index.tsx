@@ -323,12 +323,32 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     </li>
                     <li>
                       <NavLink
-                        to='/admin/pedidos/estadisticas/clientes'
+                        to='/admin/pedidos/estadisticas/semanales'
                         className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          pathname === '/admin/pedidos/estadisticas/clientes' && 'underline'
+                          pathname === '/admin/pedidos/estadisticas/semanales' && 'underline'
                         }`}
                       >
-                        Clientes
+                        Semanales
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to='/admin/pedidos/estadisticas/mensuales'
+                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                          pathname === '/admin/pedidos/estadisticas/mensuales' && 'underline'
+                        }`}
+                      >
+                        Mensuaales
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to='/admin/pedidos/estadisticas/anuales'
+                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                          pathname === '/admin/pedidos/estadisticas/anuales' && 'underline'
+                        }`}
+                      >
+                        Anuales
                       </NavLink>
                     </li>
                   </ul>

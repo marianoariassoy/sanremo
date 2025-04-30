@@ -20,7 +20,9 @@ import Pedidos from './pages/Admin/Pedidos'
 
 import PedidosHistorial from './pages/Admin/Pedidos/historial'
 import PedidosEstadisticas from './pages/Admin/Estadisticas/'
-import PedidosEstadisticasClientes from './pages/Admin/Estadisticas/clientes'
+import EstadisticasSemanales from './pages/Admin/Estadisticas/semanales'
+import EstadisticasMensuales from './pages/Admin/Estadisticas/mensuales'
+import EstadisticasAnuales from './pages/Admin/Estadisticas/anuales'
 import PedidosModificar from './pages/Admin/Pedidos/modificar'
 
 import Archivos from './pages/Admin/Archivos/'
@@ -211,15 +213,35 @@ function App() {
                 </>
               }
             />
+
             <Route
-              path='/admin/pedidos/estadisticas/clientes'
+              path='/admin/pedidos/estadisticas/semanales'
               element={
                 <>
-                  <PageTitle title='Estadísticas Clientes | San Remo' />
-                  <PedidosEstadisticasClientes />
+                  <PageTitle title='Estadísticas Semanales | San Remo' />
+                  <EstadisticasSemanales />
                 </>
               }
             />
+            <Route
+              path='/admin/pedidos/estadisticas/mensuales'
+              element={
+                <>
+                  <PageTitle title='Estadísticas Mensuales | San Remo' />
+                  <EstadisticasMensuales />
+                </>
+              }
+            />
+            <Route
+              path='/admin/pedidos/estadisticas/anuales'
+              element={
+                <>
+                  <PageTitle title='Estadísticas Anuales | San Remo' />
+                  <EstadisticasAnuales />
+                </>
+              }
+            />
+
             <Route
               path='/admin/archivos'
               element={

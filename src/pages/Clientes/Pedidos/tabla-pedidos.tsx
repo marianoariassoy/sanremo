@@ -17,7 +17,7 @@ const TableOne = ({
                 <th className='p-2 py-4'>
                   <h5 className='font-medium'>Código</h5>
                 </th>
-                <th className='p-2 py-4 w-full'>
+                <th className='p-2 py-4'>
                   <h5 className='font-medium'>Cantidad</h5>
                 </th>
                 <th className='p-2 py-4'>
