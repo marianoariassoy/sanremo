@@ -11,11 +11,11 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
   useEffect(() => {
     const today = new Date()
     setStartDate(today)
-    filterOrders(startOfWeek(today, { weekStartsOn: 1 }), endOfWeek(today, { weekStartsOn: 1 }))
+    filterOrders(startOfWeek(today, { weekStartsOn: 0 }), endOfWeek(today, { weekStartsOn: 1 }))
   }, [])
 
   useEffect(() => {
-    filterOrders(startOfWeek(startDate, { weekStartsOn: 1 }), endOfWeek(startDate, { weekStartsOn: 1 }))
+    filterOrders(startOfWeek(startDate, { weekStartsOn: 0 }), endOfWeek(startDate, { weekStartsOn: 1 }))
   }, [startDate])
 
   const weekDays = eachDayOfInterval({
