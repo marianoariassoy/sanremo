@@ -118,7 +118,7 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
                         className='p-2'
                       >
                         {filteredOrders
-                          .filter(order => getWeek(new Date(order.pickup_date)) == getWeek(day))
+                          .filter(order => getWeek(new Date(order.pickup_date)) === getWeek(day))
                           .reduce((acc, order) => {
                             return (
                               acc +

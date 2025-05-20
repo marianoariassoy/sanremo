@@ -66,9 +66,9 @@ const historialAdmin = () => {
   const getOrders = async () => {
     try {
       setLoading(true)
-      const response = await axios.get(`${apiUrl}/orders`)
+      const response = await axios.get(`${apiUrl}/orders/all/actives`)
       if (response.data) {
-        const data = response.data.filter(order => !order.active)
+        const data = response.data
         setData(data)
         setLoading(false)
       }

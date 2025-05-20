@@ -1,7 +1,7 @@
 import { Product } from '../../../types/product'
 import { Order } from '../../../types/order'
 import { useEffect, useState } from 'react'
-import { format, eachMonthOfInterval, startOfYear, endOfYear, parseISO } from 'date-fns'
+import { format, eachMonthOfInterval, startOfYear, endOfYear } from 'date-fns'
 import { es } from 'date-fns/locale'
 
 const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: Order[] }) => {
@@ -13,13 +13,26 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
     end: endOfYear(new Date(year, 0, 1))
   })
 
+  // const getMonth = (date: Date) => {
+  //   return Number(format(date, 'M'))
+  // }
+
   const getMonth = (date: Date) => {
-    return format(date, 'M')
+    return date.getMonth() + 1 // devuelve 5 para mayo
   }
+
+  // const filterOrders = (start: Date, end: Date) => {
+  //   const filtered = orders.filter(order => {
+  //     const orderDate = new Date(order.pickup_date)
+  //     return orderDate >= start && orderDate <= end
+  //   })
+  //   setFilteredOrders(filtered)
+  //   console.log(filtered)
+  // }
 
   const filterOrders = (start: Date, end: Date) => {
     const filtered = orders.filter(order => {
-      const orderDate = parseISO(order.created_at)
+      const orderDate = new Date(order.pickup_date) // fuerza zona horaria local
       return orderDate >= start && orderDate <= end
     })
     setFilteredOrders(filtered)
@@ -103,13 +116,14 @@ const tablaEstadisticas = ({ products, orders }: { products: Product[]; orders: 
                     }, 0)}
                   </td>
                   {months.map((month, index) => {
+                    const monthNumber = month.getMonth() + 1
                     return (
                       <td
                         key={index}
                         className='p-2'
                       >
                         {filteredOrders
-                          .filter(order => getMonth(order.pickup_date) == month.getMonth() + 1)
+                          .filter(order => getMonth(new Date(order.pickup_date)) === monthNumber)
                           .reduce((acc, order) => {
                             return (
                               acc +

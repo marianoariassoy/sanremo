@@ -338,7 +338,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           pathname === '/admin/pedidos/estadisticas/mensuales' && 'underline'
                         }`}
                       >
-                        Mensuaales
+                        Mensuales
                       </NavLink>
                     </li>
                     <li>
