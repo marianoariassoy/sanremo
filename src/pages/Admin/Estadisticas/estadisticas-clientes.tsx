@@ -97,20 +97,22 @@ const estadisticas = () => {
       {loadingUsers || loadingProducts || loadingOrders ? (
         <Loader />
       ) : (
-        <div className='flex flex-col gap-4'>
-          <div>
+        <div className='flex gap-4'>
+          <div className='w-full lg:w-3/4'>
+            <Tabla
+              users={users}
+              products={products}
+              orders={filteredOrders}
+            />
+          </div>
+
+          <div className='w-full lg:w-1/4'>
             <DateRange
               startDate={startDate}
               endDate={endDate}
               handleDateChange={handleDateChange}
             />
           </div>
-
-          <Tabla
-            users={users}
-            products={products}
-            orders={filteredOrders}
-          />
         </div>
       )}
     </section>

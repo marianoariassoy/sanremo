@@ -4,7 +4,7 @@ import { Order } from '../../../types/order'
 
 const tablaEstadisticas = ({ users, products, orders }: { users: User[]; products: Product[]; orders: Order[] }) => {
   return (
-    <article className='w-full flex flex-col gap-y-4 text-sm lg:text-base'>
+    <article className='w-full flex flex-col gap-y-4 text-sm lg:text-base overflow-x-auto'>
       <div className='rounded-sm border border-stroke bg-white p-2 lg:px-5 lg:pt-6 pb-2 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-4'>
         <div className='w-full overflow-x-auto'>
           <table className='w-full'>
